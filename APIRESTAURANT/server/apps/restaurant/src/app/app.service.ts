@@ -12,8 +12,25 @@ export class AppService {
   ){}
 
   async findAll(): Promise<Restaurant[]> {
-      console.log("da vao");
-    return this.restaurantRepository.find();
+      console.log("Da vao ");
+    return this.restaurantRepository.find({relations:['imagesRestaurants']});
+  }
+
+  async search(name:string) : Promise<any[]>  {
+  
+    if(name)
+    {
+        const listRestaurant = await  this.restaurantRepository.find({});
+        const filterRestaurant = listRestaurant.filter((el)=>{
+            return el['nameRestaurant'].toLowerCase().indexOf(name.toLowerCase())===-1
+        })
+        return  filterRestaurant;
+    }
+    else
+    {
+      return [];
+    }
+   
   }
   getData(): { message: string } {
     return { message: 'Welcome to restaurant!' };

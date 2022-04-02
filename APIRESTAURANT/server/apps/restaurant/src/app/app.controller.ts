@@ -11,9 +11,15 @@ export class AppController {
     return this.appService.findAll();
   }
 
-  @Get(':name')
+  @Get('search/:name')
   search(@Param('name')name : string)
   { 
-    return this.appService.search(name);
+    return this.appService.searchRestaurant(name);
+  }
+
+  @Get(':id')
+  getRestaurant(@Param('id')id : string)
+  { 
+    return this.appService.getRestaurant(id);
   }
 }

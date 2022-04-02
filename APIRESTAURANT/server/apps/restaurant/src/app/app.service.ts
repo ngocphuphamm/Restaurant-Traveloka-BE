@@ -10,13 +10,15 @@ export class AppService {
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
   ){}
-
+  
+  //  //{{baseUrl}}/api/ 
   async findAll(): Promise<Restaurant[]> {
       console.log("Da vao ");
     return this.restaurantRepository.find({relations:['imagesRestaurants']});
   }
 
-  async search(name:string) : Promise<any[]>  {
+  //{{baseUrl}}/api/:name  
+  async searchRestaurant(name:string) : Promise<any[]>  {
   
     if(name)
     {
@@ -32,6 +34,16 @@ export class AppService {
     }
    
   }
+
+  //{{baseUrl}}/api/:id
+
+  async getRestaurant(id : string) : Promise<Restaurant>{
+      console.log("da vao");
+      return this.restaurantRepository.findOne({idRestaurant : id},{relations:['imagesRestaurants']})
+  }
+
+
+
   getData(): { message: string } {
     return { message: 'Welcome to restaurant!' };
   }

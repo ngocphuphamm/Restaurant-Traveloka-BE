@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Menu } from '../entities/Menu';
 import { Restaurant } from '../entities/Restaurant';
 
-import { getManager } from 'typeorm';
+
 @Injectable()
 export class AppService {
   constructor(
@@ -40,17 +40,17 @@ export class AppService {
   //{{baseUrl}}/api/:id
 
   async getRestaurant(id : string) : Promise<Restaurant>{
-    console.log("da voaa");
 
       return await this.restaurantRepository.findOne(({idRestaurant : id}),{relations:['menus','imagesRestaurants']});
-    
+  }
 
-    }
-
-
+  //{{baseUrl}}//
 
   getData(): { message: string } {
     return { message: 'Welcome to restaurant!' };
   }
+
+
+
 
 }

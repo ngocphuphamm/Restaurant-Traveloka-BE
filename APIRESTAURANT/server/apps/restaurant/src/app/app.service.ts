@@ -1,16 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, MethodNotAllowedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Menu } from '../entities/Menu';
 import { Restaurant } from '../entities/Restaurant';
 
-
+import { getManager } from 'typeorm';
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
+    
   ){}
-  
+
   //  //{{baseUrl}}/api/ 
   async findAll(): Promise<Restaurant[]> {
       console.log("Da vao ");
@@ -18,7 +20,7 @@ export class AppService {
   }
 
   //{{baseUrl}}/api/:name  
-  async searchRestaurant(name:string) : Promise<any[]>  {
+  async searchRestaurant(name:string) : Promise<Restaurant [] >  {
   
     if(name)
     {
@@ -38,9 +40,12 @@ export class AppService {
   //{{baseUrl}}/api/:id
 
   async getRestaurant(id : string) : Promise<Restaurant>{
-      console.log("da vao");
-      return this.restaurantRepository.findOne({idRestaurant : id},{relations:['imagesRestaurants']})
-  }
+    console.log("da voaa");
+
+      return await this.restaurantRepository.findOne(({idRestaurant : id}),{relations:['menus','imagesRestaurants']});
+    
+
+    }
 
 
 

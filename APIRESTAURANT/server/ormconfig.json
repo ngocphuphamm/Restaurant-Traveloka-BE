@@ -1,0 +1,13 @@
+[
+  {
+    "name": "default",
+    "type": "mssql",
+    "host": "localhost",
+    "port": 1433,
+    "username": "sa",
+    "password": "ngocphu@123",
+    "database": "restaurantver2",
+    "synchronize": true,
+    "entities": ["entities/*.js"]
+  }
+]

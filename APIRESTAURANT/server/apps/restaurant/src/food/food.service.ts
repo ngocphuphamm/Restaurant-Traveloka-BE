@@ -16,4 +16,22 @@ export class FoodService {
         console.log("Da vao ");
       return this.foodRepository.find();
     }
+
+    async searchFood(name : string ) : Promise<Food []> {
+            if(name)
+            { 
+                const listFood = await  this.foodRepository.find({});
+                const filterFood = listFood.filter((el)=>{
+                    return el['nameFood'].toLowerCase().indexOf(name.toLowerCase())==-1
+                })
+                return  filterFood;
+            }
+            else
+            { 
+                return [];
+            }
+       
+
+       
+    }
 }

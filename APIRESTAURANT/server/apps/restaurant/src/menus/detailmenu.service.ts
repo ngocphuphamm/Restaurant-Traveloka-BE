@@ -5,20 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DetailMenu } from '../entities/DetailMenu';
 
 @Injectable()
-export class MenusService {
+export class DetailService {
     constructor(
-        @InjectRepository(Menu)
-        private  menusRepository: Repository<Menu>,
+        @InjectRepository(DetailMenu)
+        private  detailRepository: Repository<DetailMenu>,
     )   {}
-    
-        async getMenu(id : string): Promise<any> {
-            
-            return this.menusRepository.findOne({idMenu : id});
-        
-        }
 
         async getDetailMenu(id:string) : Promise<any> {
-            // return this.detailRepository.findOne({idMenu:id});
+            return this.detailRepository.findOne({idMenu:id});
         }
 
 }

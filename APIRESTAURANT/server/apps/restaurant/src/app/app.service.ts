@@ -44,12 +44,23 @@ export class AppService {
       return await this.restaurantRepository.findOne(({idRestaurant : id}),{relations:['menus','imagesRestaurants']});
   }
 
+
+  async getInfoCarry(id : string){
+      const restaurant =  await this.restaurantRepository.findOne({idRestaurant:id}) ; 
+      const nameRestaurant = restaurant['nameRestaurant'];
+      const addressRestaurant = restaurant['addressRestaurant'];
+      return { 
+        "nameRestaurant" : nameRestaurant,
+        "addressRestaurant" : addressRestaurant
+      }
+  }
+
+
   //{{baseUrl}}//
 
   getData(): { message: string } {
     return { message: 'Welcome to restaurant!' };
   }
-
 
 
 

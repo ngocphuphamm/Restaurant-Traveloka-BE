@@ -25,13 +25,14 @@ import { StatisticalTables } from '../entities/StatisticalTables';
 import { Transaction } from '../entities/Transaction';
 
 import { FoodModule } from '../food/food.module';
+import { MenusModule } from '../menus/menus.module';
 
 
 
 
 
 @Module({
-
+  exports : [AppService],
   imports: [
      TypeOrmModule.forRoot({
       type: 'mssql',
@@ -45,6 +46,7 @@ import { FoodModule } from '../food/food.module';
     }),
     TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,DetailOrder,Food,ImagesRestaurant,ListImagesFood,Menu,Order,Payment,Restaurant,Staff,StatisticalTables,Transaction]),
     FoodModule,
+    MenusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

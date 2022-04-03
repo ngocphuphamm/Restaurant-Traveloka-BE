@@ -1,6 +1,58 @@
 {
   "version": 2,
   "projects": {
+    "restaurant": {
+      "root": "apps/restaurant",
+      "sourceRoot": "apps/restaurant/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:webpack",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/restaurant",
+            "main": "apps/restaurant/src/main.ts",
+            "tsConfig": "apps/restaurant/tsconfig.app.json",
+            "assets": ["apps/restaurant/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/restaurant/src/environments/environment.ts",
+                  "with": "apps/restaurant/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:node",
+          "options": {
+            "buildTarget": "restaurant:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/restaurant/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/restaurant"],
+          "options": {
+            "jestConfig": "apps/restaurant/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "restaurant-fiance": {
       "root": "apps/restaurant-fiance",
       "sourceRoot": "apps/restaurant-fiance/src",
@@ -53,19 +105,19 @@
       },
       "tags": []
     },
-    "restaurant": {
-      "root": "apps/restaurant",
-      "sourceRoot": "apps/restaurant/src",
+    "restaurant-src-app-food": {
+      "root": "apps/restaurant/src/app/food",
+      "sourceRoot": "apps/restaurant/src/app/food/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "@nrwl/node:webpack",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/restaurant",
-            "main": "apps/restaurant/src/main.ts",
-            "tsConfig": "apps/restaurant/tsconfig.app.json",
-            "assets": ["apps/restaurant/src/assets"]
+            "outputPath": "dist/apps/restaurant/src/app/food",
+            "main": "apps/restaurant/src/app/food/src/main.ts",
+            "tsConfig": "apps/restaurant/src/app/food/tsconfig.app.json",
+            "assets": ["apps/restaurant/src/app/food/src/assets"]
           },
           "configurations": {
             "production": {
@@ -74,8 +126,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/restaurant/src/environments/environment.ts",
-                  "with": "apps/restaurant/src/environments/environment.prod.ts"
+                  "replace": "apps/restaurant/src/app/food/src/environments/environment.ts",
+                  "with": "apps/restaurant/src/app/food/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -84,21 +136,73 @@
         "serve": {
           "executor": "@nrwl/node:node",
           "options": {
-            "buildTarget": "restaurant:build"
+            "buildTarget": "restaurant-src-app-food:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/restaurant/**/*.ts"]
+            "lintFilePatterns": ["apps/restaurant/src/app/food/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/restaurant"],
+          "outputs": ["coverage/apps/restaurant/src/app/food"],
           "options": {
-            "jestConfig": "apps/restaurant/jest.config.js",
+            "jestConfig": "apps/restaurant/src/app/food/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "restaurant-src-app-foodapp": {
+      "root": "apps/restaurant/src/app/foodapp",
+      "sourceRoot": "apps/restaurant/src/app/foodapp/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:webpack",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/restaurant/src/app/foodapp",
+            "main": "apps/restaurant/src/app/foodapp/src/main.ts",
+            "tsConfig": "apps/restaurant/src/app/foodapp/tsconfig.app.json",
+            "assets": ["apps/restaurant/src/app/foodapp/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/restaurant/src/app/foodapp/src/environments/environment.ts",
+                  "with": "apps/restaurant/src/app/foodapp/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:node",
+          "options": {
+            "buildTarget": "restaurant-src-app-foodapp:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/restaurant/src/app/foodapp/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/restaurant/src/app/foodapp"],
+          "options": {
+            "jestConfig": "apps/restaurant/src/app/foodapp/jest.config.js",
             "passWithNoTests": true
           }
         }

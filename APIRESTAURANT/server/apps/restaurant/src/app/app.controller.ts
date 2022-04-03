@@ -1,10 +1,11 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { FoodService } from '../food/food.service';
 
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('restaurant')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService,private foodService: FoodService) {}
 
   @Get()
   getData() {

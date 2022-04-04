@@ -12,7 +12,7 @@ export class DetailService {
     )   {}
 
         async getDetailMenu(id:string) : Promise<any> {
-            return this.detailRepository.findOne({idMenu:id});
+            return this.detailRepository.find({idMenu:id});
         }
 
 }

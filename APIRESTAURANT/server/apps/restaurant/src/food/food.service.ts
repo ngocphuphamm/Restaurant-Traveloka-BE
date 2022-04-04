@@ -34,4 +34,16 @@ export class FoodService {
 
        
     }
+
+
+    // async searchId(id : string) : Promise<Food[]>{
+    //     if(id)
+    //     {
+    //         const listFood = await this.foodRepository.find({id : })
+    //     }
+    //     else
+    //     { 
+    //         return [];
+    //     }
+    // }
 }

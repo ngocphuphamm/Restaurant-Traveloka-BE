@@ -7,21 +7,39 @@ import { MenusService } from './menus.service';
 
 @Controller('menus')
 export class MenusController {
-    constructor(private readonly menusService: MenusService,private appService: AppService,private foodService:FoodService,private detailService: DetailService){}
-    
-    @Get(':id')
-    async getMenu(@Param('id')id:string)  {
-        // const menu =  await this.menusService.getMenu(id);
-        // // name and address restaurant
-        // const idRestaurant = menu['idRestaurant'];
-        // const restaurant = await this.appService.getInfoCarry(idRestaurant);
-        // const nameRestaurant = restaurant['nameRestaurant'];
-        // const addressRestaurant = restaurant['addressRestaurant'];
-        // const detailRestaurant = await  this.detailService.getDetailMenu(menu['idMenu']);
-        // const food = await  this.foodService.;
-        // return this.menusService.find({idMenu : id },{rela})
+  constructor(
+    private readonly menusService: MenusService,
+    private appService: AppService,
+    private foodService: FoodService,
+    private detailService: DetailService
+  ) {}
 
-       
+  @Get(':id')
+  async getMenu(@Param('id') id: string) {
+    const menu = await this.menusService.getMenu(id);
+    // name and address restaurant
+    const idRestaurant = menu['idRestaurant'];
+    const restaurant = await this.appService.getInfoCarry(idRestaurant);
+    const nameRestaurant = restaurant['nameRestaurant'];
+    const addressRestaurant = restaurant['addressRestaurant'];
 
+    const enityMnager = getManager();
+    const someQuery = await enityMnager.query(`
+                    SELECT F.*,LM.urlImage
+                    FROM DetailMenu DT JOIN FOOD F
+                    ON DT.idFood = F.idFood 
+                    JOIN ListImagesFood LM
+                    ON LM.idFood = F.idFood
+                    WHERE idMenu = N'${id}'
+        `);
+    // const food = await  this.foodService.;
+    // return this.menusService.find({idMenu : id },{rela})
+    const returnRestaurant = {
+        "idRestaurant" : idRestaurant,
+        "nameRestaurant" : nameRestaurant,
+        "addressRestaurant":addressRestaurant,
+        "Food" : someQuery
     }
+    return returnRestaurant;
+  }
 }

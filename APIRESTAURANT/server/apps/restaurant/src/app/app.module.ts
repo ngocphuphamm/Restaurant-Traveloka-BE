@@ -26,6 +26,8 @@ import { Transaction } from '../entities/Transaction';
 
 import { FoodModule } from '../food/food.module';
 import { MenusModule } from '../menus/menus.module';
+import { BookRestaurantModule } from '../book-restaurant/book-restaurant.module';
+import { BookFoodModule } from '../book-food/book-food.module';
 
 
 
@@ -47,6 +49,8 @@ import { MenusModule } from '../menus/menus.module';
     TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,DetailOrder,Food,ImagesRestaurant,ListImagesFood,Menu,Order,Payment,Restaurant,Staff,StatisticalTables,Transaction]),
     FoodModule,
     MenusModule,
+    BookRestaurantModule,
+    BookFoodModule
   ],
   controllers: [AppController],
   providers: [AppService],

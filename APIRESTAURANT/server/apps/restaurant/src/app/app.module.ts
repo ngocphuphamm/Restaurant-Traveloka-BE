@@ -12,12 +12,12 @@ import { BookRestaurant } from '../entities/BookRestaurant';
 import { Comment } from '../entities/Comment';
 import { Customer } from '../entities/Customer';
 import { DetailMenu } from '../entities/DetailMenu';
-import { DetailOrder } from '../entities/DetailOrder';
+
 
 import { ImagesRestaurant } from '../entities/ImagesRestaurant';
 import { ListImagesFood } from '../entities/ListImagesFood';
 import { Menu } from '../entities/Menu';
-import { Order } from '../entities/Order';
+
 import { Payment } from '../entities/Payment';
 import { Restaurant } from '../entities/Restaurant';
 import { Staff } from '../entities/Staff';
@@ -28,6 +28,7 @@ import { FoodModule } from '../food/food.module';
 import { MenusModule } from '../menus/menus.module';
 import { BookRestaurantModule } from '../book-restaurant/book-restaurant.module';
 import { BookFoodModule } from '../book-food/book-food.module';
+import { DetailTransaction } from '../entities/DetailTransaction';
 
 
 
@@ -42,11 +43,11 @@ import { BookFoodModule } from '../book-food/book-food.module';
       port: 1433,
       username: 'sa',
       password: 'ngocphu@123',
-      database: 'restaurant',
-      entities: [BookRestaurant,Comment,Customer,DetailMenu,DetailOrder,Food,ImagesRestaurant,ListImagesFood,Menu,Order,Payment,Restaurant,Staff,StatisticalTables,Transaction],
+      database: 'restaurantt',
+      entities: [BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction],
 
     }),
-    TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,DetailOrder,Food,ImagesRestaurant,ListImagesFood,Menu,Order,Payment,Restaurant,Staff,StatisticalTables,Transaction]),
+    TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction]),
     FoodModule,
     MenusModule,
     BookRestaurantModule,

@@ -3,5 +3,6 @@ export class CreateBookDto {
     nameBook: string;
     phoneBook: number;
     timeBook: Date;
+    createdAt : Date;
     status: number;
 }

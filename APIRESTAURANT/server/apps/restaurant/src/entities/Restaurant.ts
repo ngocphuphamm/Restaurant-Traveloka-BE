@@ -4,7 +4,7 @@ import { Comment } from "./Comment";
 import { ImagesRestaurant } from "./ImagesRestaurant";
 import { Menu } from "./Menu";
 
-@Index("PK__Restaura__6B94F09E9C471ED0", ["idRestaurant"], { unique: true })
+@Index("PK__Restaura__6B94F09ED6921C8E", ["idRestaurant"], { unique: true })
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })
@@ -25,8 +25,8 @@ export class Restaurant {
   @Column("float", { name: "priceService", precision: 53 })
   priceService: number;
 
-  @Column("int", { name: "like", nullable: true })
-  like: number | null;
+  @Column("int", { name: "likes", nullable: true })
+  likes: number | null;
 
   @Column("int", { name: "dislikes", nullable: true })
   dislikes: number | null;
@@ -45,7 +45,7 @@ export class Restaurant {
 
   @OneToMany(
     () => ImagesRestaurant,
-    (imagesRestaurant) => imagesRestaurant.idRestaurant2
+    (imagesRestaurant) => imagesRestaurant.idRestaurant
   )
   imagesRestaurants: ImagesRestaurant[];
 

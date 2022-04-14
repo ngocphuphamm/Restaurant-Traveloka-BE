@@ -1,12 +1,10 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Staff } from "./Staff";
 import { Transaction } from "./Transaction";
+import { Staff } from "./Staff";
 
-@Index(
-  "PK__Statisti__804B540D3C948670",
-  ["idStatistical", "idTransaction", "idStaff"],
-  { unique: true }
-)
+@Index("PK__Statisti__28D39C8B76667898", ["idStatistical", "idTransaction"], {
+  unique: true,
+})
 @Entity("StatisticalTables", { schema: "dbo" })
 export class StatisticalTables {
   @Column("nvarchar", { primary: true, name: "idStatistical", length: 255 })
@@ -14,9 +12,6 @@ export class StatisticalTables {
 
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
   idTransaction: string;
-
-  @Column("nvarchar", { primary: true, name: "idStaff", length: 255 })
-  idStaff: string;
 
   @Column("int", { name: "Number" })
   number: number;
@@ -42,33 +37,13 @@ export class StatisticalTables {
   @Column("float", { name: "revenureBefore", nullable: true, precision: 53 })
   revenureBefore: number | null;
 
-  @ManyToOne(() => Staff, (staff) => staff.statisticalTables)
-  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
-  idStaff2: Staff;
-
-  @ManyToOne(() => Staff, (staff) => staff.statisticalTables2)
-  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
-  idStaff3: Staff;
-
-  @ManyToOne(() => Staff, (staff) => staff.statisticalTables3)
-  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
-  idStaff4: Staff;
-
   @ManyToOne(() => Transaction, (transaction) => transaction.statisticalTables)
   @JoinColumn([
     { name: "idTransaction", referencedColumnName: "idTransaction" },
   ])
   idTransaction2: Transaction;
 
-  @ManyToOne(() => Transaction, (transaction) => transaction.statisticalTables2)
-  @JoinColumn([
-    { name: "idTransaction", referencedColumnName: "idTransaction" },
-  ])
-  idTransaction3: Transaction;
-
-  @ManyToOne(() => Transaction, (transaction) => transaction.statisticalTables3)
-  @JoinColumn([
-    { name: "idTransaction", referencedColumnName: "idTransaction" },
-  ])
-  idTransaction4: Transaction;
+  @ManyToOne(() => Staff, (staff) => staff.statisticalTables)
+  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
+  idStaff: Staff;
 }

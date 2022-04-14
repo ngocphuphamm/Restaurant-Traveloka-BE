@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Restaurant } from "./Restaurant";
 
-@Index("PK__BookRest__3CB708B1C394C3B0", ["idBookRestaurant", "idRestaurant"], {
+@Index("PK__BookRest__3CB708B111A9B619", ["idBookRestaurant", "idRestaurant"], {
   unique: true,
 })
 @Entity("BookRestaurant", { schema: "dbo" })
@@ -24,8 +24,8 @@ export class BookRestaurant {
   @Column("datetime", { name: "createdAt" })
   createdAt: Date;
 
-  @Column("int", { name: "status" })
-  status: number;
+  @Column("bit", { name: "status" })
+  status: boolean;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.bookRestaurants)
   @JoinColumn([{ name: "idRestaurant", referencedColumnName: "idRestaurant" }])

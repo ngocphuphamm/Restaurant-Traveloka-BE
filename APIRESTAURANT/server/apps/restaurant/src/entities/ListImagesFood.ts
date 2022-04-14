@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Food } from "./Food";
 
-@Index("PK__ListImag__42CA0DFCD647E63D", ["idImagesFood", "idFood"], {
+@Index("PK__ListImag__42CA0DFC0DE35F1A", ["idImagesFood", "idFood"], {
   unique: true,
 })
 @Entity("ListImagesFood", { schema: "dbo" })
@@ -24,12 +24,4 @@ export class ListImagesFood {
   @ManyToOne(() => Food, (food) => food.listImagesFoods)
   @JoinColumn([{ name: "idFood", referencedColumnName: "idFood" }])
   idFood2: Food;
-
-  @ManyToOne(() => Food, (food) => food.listImagesFoods2)
-  @JoinColumn([{ name: "idFood", referencedColumnName: "idFood" }])
-  idFood3: Food;
-
-  @ManyToOne(() => Food, (food) => food.listImagesFoods3)
-  @JoinColumn([{ name: "idFood", referencedColumnName: "idFood" }])
-  idFood4: Food;
 }

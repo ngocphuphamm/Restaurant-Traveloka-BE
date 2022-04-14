@@ -3,7 +3,7 @@ import { Restaurant } from "./Restaurant";
 import { Customer } from "./Customer";
 
 @Index(
-  "PK__Comment__699207DF21D41CBD",
+  "PK__Comment__699207DF13FE8056",
   ["idRestaurant", "idCustomer", "idComment"],
   { unique: true }
 )
@@ -31,12 +31,4 @@ export class Comment {
   @ManyToOne(() => Customer, (customer) => customer.comments)
   @JoinColumn([{ name: "idCustomer", referencedColumnName: "idCustomer" }])
   idCustomer2: Customer;
-
-  @ManyToOne(() => Customer, (customer) => customer.comments2)
-  @JoinColumn([{ name: "idCustomer", referencedColumnName: "idCustomer" }])
-  idCustomer3: Customer;
-
-  @ManyToOne(() => Customer, (customer) => customer.comments3)
-  @JoinColumn([{ name: "idCustomer", referencedColumnName: "idCustomer" }])
-  idCustomer4: Customer;
 }

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Menu } from '../entities/Menu';
 import { Restaurant } from '../entities/Restaurant';
-
+import { cleanAccents } from '../function/function';
 
 @Injectable()
 export class AppService {
@@ -26,7 +26,7 @@ export class AppService {
     {
         const listRestaurant = await  this.restaurantRepository.find({});
         const filterRestaurant = listRestaurant.filter((el)=>{
-            return el['nameRestaurant'].toLowerCase().indexOf(name.toLowerCase())===-1
+            return cleanAccents(el['nameRestaurant']).toLowerCase().indexOf(cleanAccents(name).toLowerCase())=== 0 
         })
         return  filterRestaurant;
     }

@@ -14,6 +14,12 @@ export class Food {
   @Column("float", { name: "priceFood", precision: 53 })
   priceFood: number;
 
+  @Column("int", { name: "qty", nullable: true })
+  qty: number | null;
+
+  @Column("int", { name: "qtyBook", nullable: true })
+  qtyBook: number | null;
+
   @Column("datetime", { name: "createdAt", nullable: true })
   createdAt: Date | null;
 

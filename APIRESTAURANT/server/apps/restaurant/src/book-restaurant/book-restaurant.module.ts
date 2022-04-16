@@ -16,7 +16,7 @@ import { Payment } from '../entities/Payment';
 import { Restaurant } from '../entities/Restaurant';
 import { Staff } from '../entities/Staff';
 import { StatisticalTables } from '../entities/StatisticalTables';
-// import { Transaction } from '../entities/Transaction';
+import { Transaction } from '../entities/Transaction';
 @Module({
   providers: [BookRestaurantService],
   controllers: [BookRestaurantController],

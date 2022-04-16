@@ -1,8 +1,9 @@
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Food } from '../entities/Food';
-
+import {cleanAccents} from '../function/function';
 
 @Injectable()
 export class FoodService {
@@ -18,13 +19,15 @@ export class FoodService {
     }
 
     async searchFood(name : string ) : Promise<Food []> {
+
+            
             if(name)
             { 
                 const listFood = await  this.foodRepository.find({});
-                const filterFood = listFood.filter((el)=>{
-                    return el['nameFood'].toLowerCase().indexOf(name.toLowerCase())==-1
-                })
-                return  filterFood;
+                 const listfilter = await listFood.filter((el)=>{
+                    return  cleanAccents(el['nameFood']).toLowerCase().indexOf(cleanAccents(name).toLowerCase()) === 0 
+                 })
+                return listfilter;
             }
             else
             { 

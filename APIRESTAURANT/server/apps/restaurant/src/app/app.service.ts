@@ -27,8 +27,8 @@ export class AppService {
         const listRestaurant = await  this.restaurantRepository.find({});
         const filterRestaurant = listRestaurant.filter((el)=>{
             return cleanAccents(el['nameRestaurant']).toLowerCase().indexOf(cleanAccents(name).toLowerCase())=== 0 
-        })
-        return  filterRestaurant;
+      })
+        // return  filterRestaurant;
     }
     else
     {

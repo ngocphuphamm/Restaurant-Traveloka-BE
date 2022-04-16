@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { getManager } from 'typeorm';
 import { Food } from '../entities/Food';
 import { FoodService } from './food.service';
 
@@ -17,5 +18,14 @@ export class FoodController {
           return this.foodService.searchFood(name);
      
        
+    }
+
+    @Get('getAllFood/:id')
+   async getAllFoodAtRestaurant(@Param('id')id : string) : Promise<Food []> 
+    {
+        return this.foodService.getAllFoodAtRestaurant(id);
+  
+
+   
     }
 }

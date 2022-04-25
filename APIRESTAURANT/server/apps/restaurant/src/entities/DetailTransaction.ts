@@ -9,7 +9,7 @@ import {
 import { Transaction } from "./Transaction";
 import { DetailMenu } from "./DetailMenu";
 
-@Index("PK__DetailTr__A0DB881592AC5199", ["idTransaction"], { unique: true })
+@Index("PK__DetailTr__A0DB88153ADACBA4", ["idTransaction"], { unique: true })
 @Entity("DetailTransaction", { schema: "dbo" })
 export class DetailTransaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })

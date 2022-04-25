@@ -9,7 +9,7 @@ import {
 import { DetailMenu } from "./DetailMenu";
 import { Restaurant } from "./Restaurant";
 
-@Index("PK__Menu__34D3BB8A662C43C8", ["idMenu", "idRestaurant"], {
+@Index("PK__Menu__34D3BB8A97EA429A", ["idMenu", "idRestaurant"], {
   unique: true,
 })
 @Entity("Menu", { schema: "dbo" })

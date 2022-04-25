@@ -10,7 +10,7 @@ import { Food } from "./Food";
 import { Menu } from "./Menu";
 import { DetailTransaction } from "./DetailTransaction";
 
-@Index("PK__DetailMe__DA941012FE7653FD", ["idFood", "idMenu", "idRestaurant"], {
+@Index("PK__DetailMe__DA94101226874F88", ["idFood", "idMenu", "idRestaurant"], {
   unique: true,
 })
 @Entity("DetailMenu", { schema: "dbo" })
@@ -21,10 +21,18 @@ export class DetailMenu {
   @Column("varchar", { primary: true, name: "idMenu", length: 200 })
   idMenu: string;
 
-  @Column("datetime", { name: "createdAt", nullable: true })
+  @Column("datetime", {
+    name: "createdAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
   createdAt: Date | null;
 
-  @Column("datetime", { name: "updatedAt", nullable: true })
+  @Column("datetime", {
+    name: "updatedAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
   updatedAt: Date | null;
 
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })

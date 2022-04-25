@@ -11,7 +11,7 @@ import { DetailTransaction } from "./DetailTransaction";
 import { StatisticalTables } from "./StatisticalTables";
 import { Payment } from "./Payment";
 
-@Index("PK__Transact__A0DB88155C6D0A92", ["idTransaction"], { unique: true })
+@Index("PK__Transact__A0DB88159A77E53C", ["idTransaction"], { unique: true })
 @Entity("Transaction", { schema: "dbo" })
 export class Transaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
@@ -38,8 +38,19 @@ export class Transaction {
   @Column("float", { name: "totalMoney", precision: 53 })
   totalMoney: number;
 
-  @Column("datetime", { name: "createdAt", nullable: true })
+  @Column("datetime", {
+    name: "createdAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
   createdAt: Date | null;
+
+  @Column("datetime", {
+    name: "updatedAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  updatedAt: Date | null;
 
   @OneToOne(
     () => DetailTransaction,

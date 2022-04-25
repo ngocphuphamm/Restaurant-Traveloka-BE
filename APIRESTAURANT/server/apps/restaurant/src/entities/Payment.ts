@@ -1,7 +1,7 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Transaction } from "./Transaction";
 
-@Index("PK__Payment__F22D4A4584100255", ["idPayment"], { unique: true })
+@Index("PK__Payment__F22D4A45C57681E3", ["idPayment"], { unique: true })
 @Entity("Payment", { schema: "dbo" })
 export class Payment {
   @Column("nvarchar", { primary: true, name: "idPayment", length: 255 })

@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
 import { Staff } from "./Staff";
 
-@Index("PK__Statisti__28D39C8B76667898", ["idStatistical", "idTransaction"], {
+@Index("PK__Statisti__28D39C8B4094F381", ["idStatistical", "idTransaction"], {
   unique: true,
 })
 @Entity("StatisticalTables", { schema: "dbo" })
@@ -22,8 +22,12 @@ export class StatisticalTables {
   @Column("float", { name: "sumMoney", precision: 53 })
   sumMoney: number;
 
-  @Column("datetime", { name: "createdAt" })
-  createdAt: Date;
+  @Column("datetime", {
+    name: "createdAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  createdAt: Date | null;
 
   @Column("float", { name: "profit", precision: 53 })
   profit: number;

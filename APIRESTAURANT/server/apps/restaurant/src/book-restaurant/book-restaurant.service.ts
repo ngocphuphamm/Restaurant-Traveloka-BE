@@ -15,17 +15,24 @@ export class BookRestaurantService {
 
       async addBookRestaurant(createBookDto : CreateBookDto) 
       { 
-            const restaurant = BookRestaurant.length;
-            const idBookRestaurant = `BR${restaurant+1}`;
-            
-       
-            return await getConnection()
+        const enityMnager = getManager();
+        const LengthBook = await enityMnager.query(`
+        SELECT COUNT(*) as sl
+        FROM BookRestaurant
+        `);
+        let getLengthBook ;
+        for (let i =  0 ; i < LengthBook.length; i++)
+        {
+            getLengthBook = Number(LengthBook[i].sl);
+        }
+        const idBookRestaurant = `BR${getLengthBook+1}`;
+           return await getConnection()
             .createQueryBuilder()
             .insert()
             .into(BookRestaurant)
             .values([
                 { idBookRestaurant : idBookRestaurant , idRestaurant :createBookDto.idRestaurant,nameBook : createBookDto.nameBook,
-                                    phoneBook : createBookDto.phoneBook ,  timeBook : createBookDto.timeBook ,createdAt : createBookDto.createdAt,status : true }, 
+                                    phoneBook : createBookDto.phoneBook ,  timeBook : createBookDto.timeBook ,createdAt : createBookDto.createdAt,status : false }, 
           
              ])
             .execute();

@@ -12,7 +12,11 @@ import { ImagesRestaurant } from "./ImagesRestaurant";
 import { Menu } from "./Menu";
 import { Staff } from "./Staff";
 
+<<<<<<< HEAD
 @Index("PK__Restaura__6B94F09E3A59A5C5", ["idRestaurant"], { unique: true })
+=======
+@Index("PK__Restaura__6B94F09E3BB69972", ["idRestaurant"], { unique: true })
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })
@@ -75,6 +79,7 @@ export class Restaurant {
   @OneToMany(() => Menu, (menu) => menu.idRestaurant2)
   menus: Menu[];
 
+<<<<<<< HEAD
   @OneToMany(() => Menu, (menu) => menu.idRestaurant3)
   menus2: Menu[];
 
@@ -85,4 +90,9 @@ export class Restaurant {
   @ManyToOne(() => Staff, (staff) => staff.restaurants2)
   @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
   idStaff2: Staff;
+=======
+  @ManyToOne(() => Staff, (staff) => staff.restaurants)
+  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
+  idStaff: Staff;
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
 }

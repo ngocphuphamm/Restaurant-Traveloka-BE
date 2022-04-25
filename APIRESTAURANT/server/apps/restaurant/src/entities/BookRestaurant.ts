@@ -1,7 +1,11 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Restaurant } from "./Restaurant";
 
+<<<<<<< HEAD
 @Index("PK__BookRest__3CB708B1657F9300", ["idBookRestaurant", "idRestaurant"], {
+=======
+@Index("PK__BookRest__3CB708B1B05B971C", ["idBookRestaurant", "idRestaurant"], {
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
   unique: true,
 })
 @Entity("BookRestaurant", { schema: "dbo" })

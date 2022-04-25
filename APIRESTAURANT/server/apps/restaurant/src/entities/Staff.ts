@@ -2,7 +2,11 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Restaurant } from "./Restaurant";
 import { StatisticalTables } from "./StatisticalTables";
 
+<<<<<<< HEAD
 @Index("PK__Staff__98C886A93799CC22", ["idStaff"], { unique: true })
+=======
+@Index("PK__Staff__98C886A948C8C502", ["idStaff"], { unique: true })
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
 @Entity("Staff", { schema: "dbo" })
 export class Staff {
   @Column("nvarchar", { primary: true, name: "idStaff", length: 255 })
@@ -17,9 +21,12 @@ export class Staff {
   @OneToMany(() => Restaurant, (restaurant) => restaurant.idStaff)
   restaurants: Restaurant[];
 
+<<<<<<< HEAD
   @OneToMany(() => Restaurant, (restaurant) => restaurant.idStaff2)
   restaurants2: Restaurant[];
 
+=======
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
   @OneToMany(
     () => StatisticalTables,
     (statisticalTables) => statisticalTables.idStaff

@@ -11,7 +11,11 @@ import { DetailTransaction } from "./DetailTransaction";
 import { StatisticalTables } from "./StatisticalTables";
 import { Payment } from "./Payment";
 
+<<<<<<< HEAD
 @Index("PK__Transact__A0DB8815D540A0D0", ["idTransaction"], { unique: true })
+=======
+@Index("PK__Transact__A0DB88159A77E53C", ["idTransaction"], { unique: true })
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
 @Entity("Transaction", { schema: "dbo" })
 export class Transaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })

@@ -2,7 +2,11 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { DetailMenu } from "./DetailMenu";
 import { ListImagesFood } from "./ListImagesFood";
 
+<<<<<<< HEAD
 @Index("PK__Food__69D92BAA7E4FE7E8", ["idFood"], { unique: true })
+=======
+@Index("PK__Food__69D92BAA1CD3D0A2", ["idFood"], { unique: true })
+>>>>>>> 03ff1f6a5ab88d9ab820c6f404b0e7996de8792a
 @Entity("Food", { schema: "dbo" })
 export class Food {
   @Column("varchar", { primary: true, name: "idFood", length: 255 })

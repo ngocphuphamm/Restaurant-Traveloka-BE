@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
 import { Staff } from "./Staff";
 
-@Index("PK__Statisti__28D39C8B76667898", ["idStatistical", "idTransaction"], {
+@Index("PK__Statisti__28D39C8BD9956E5F", ["idStatistical", "idTransaction"], {
   unique: true,
 })
 @Entity("StatisticalTables", { schema: "dbo" })
@@ -22,8 +22,12 @@ export class StatisticalTables {
   @Column("float", { name: "sumMoney", precision: 53 })
   sumMoney: number;
 
-  @Column("datetime", { name: "createdAt" })
-  createdAt: Date;
+  @Column("datetime", {
+    name: "createdAt",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  createdAt: Date | null;
 
   @Column("float", { name: "profit", precision: 53 })
   profit: number;
@@ -43,7 +47,17 @@ export class StatisticalTables {
   ])
   idTransaction2: Transaction;
 
+  @ManyToOne(() => Transaction, (transaction) => transaction.statisticalTables2)
+  @JoinColumn([
+    { name: "idTransaction", referencedColumnName: "idTransaction" },
+  ])
+  idTransaction3: Transaction;
+
   @ManyToOne(() => Staff, (staff) => staff.statisticalTables)
   @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
   idStaff: Staff;
+
+  @ManyToOne(() => Staff, (staff) => staff.statisticalTables2)
+  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
+  idStaff2: Staff;
 }

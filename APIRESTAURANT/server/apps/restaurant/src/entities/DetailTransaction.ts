@@ -9,7 +9,7 @@ import {
 import { Transaction } from "./Transaction";
 import { DetailMenu } from "./DetailMenu";
 
-@Index("PK__DetailTr__A0DB881592AC5199", ["idTransaction"], { unique: true })
+@Index("PK__DetailTr__A0DB88153B6DCD44", ["idTransaction"], { unique: true })
 @Entity("DetailTransaction", { schema: "dbo" })
 export class DetailTransaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
@@ -27,6 +27,12 @@ export class DetailTransaction {
   ])
   idTransaction2: Transaction;
 
+  @OneToOne(() => Transaction, (transaction) => transaction.detailTransaction2)
+  @JoinColumn([
+    { name: "idTransaction", referencedColumnName: "idTransaction" },
+  ])
+  idTransaction3: Transaction;
+
   @ManyToOne(() => DetailMenu, (detailMenu) => detailMenu.detailTransactions)
   @JoinColumn([
     { name: "idFood", referencedColumnName: "idFood" },
@@ -34,4 +40,12 @@ export class DetailTransaction {
     { name: "idRestaurant", referencedColumnName: "idRestaurant" },
   ])
   detailMenu: DetailMenu;
+
+  @ManyToOne(() => DetailMenu, (detailMenu) => detailMenu.detailTransactions2)
+  @JoinColumn([
+    { name: "idFood", referencedColumnName: "idFood" },
+    { name: "idMenu", referencedColumnName: "idMenu" },
+    { name: "idRestaurant", referencedColumnName: "idRestaurant" },
+  ])
+  detailMenu2: DetailMenu;
 }

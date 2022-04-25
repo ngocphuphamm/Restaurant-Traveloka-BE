@@ -1,10 +1,18 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 import { BookRestaurant } from "./BookRestaurant";
 import { Comment } from "./Comment";
 import { ImagesRestaurant } from "./ImagesRestaurant";
 import { Menu } from "./Menu";
+import { Staff } from "./Staff";
 
-@Index("PK__Restaura__6B94F09ED6921C8E", ["idRestaurant"], { unique: true })
+@Index("PK__Restaura__6B94F09E3A59A5C5", ["idRestaurant"], { unique: true })
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })
@@ -40,8 +48,17 @@ export class Restaurant {
   )
   bookRestaurants: BookRestaurant[];
 
+  @OneToMany(
+    () => BookRestaurant,
+    (bookRestaurant) => bookRestaurant.idRestaurant3
+  )
+  bookRestaurants2: BookRestaurant[];
+
   @OneToMany(() => Comment, (comment) => comment.idRestaurant2)
   comments: Comment[];
+
+  @OneToMany(() => Comment, (comment) => comment.idRestaurant3)
+  comments2: Comment[];
 
   @OneToMany(
     () => ImagesRestaurant,
@@ -49,6 +66,23 @@ export class Restaurant {
   )
   imagesRestaurants: ImagesRestaurant[];
 
+  @OneToMany(
+    () => ImagesRestaurant,
+    (imagesRestaurant) => imagesRestaurant.idRestaurant2
+  )
+  imagesRestaurants2: ImagesRestaurant[];
+
   @OneToMany(() => Menu, (menu) => menu.idRestaurant2)
   menus: Menu[];
+
+  @OneToMany(() => Menu, (menu) => menu.idRestaurant3)
+  menus2: Menu[];
+
+  @ManyToOne(() => Staff, (staff) => staff.restaurants)
+  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
+  idStaff: Staff;
+
+  @ManyToOne(() => Staff, (staff) => staff.restaurants2)
+  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
+  idStaff2: Staff;
 }

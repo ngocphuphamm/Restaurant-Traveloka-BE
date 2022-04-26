@@ -24,11 +24,15 @@ export class AppService {
   
     if(name)
     {
+          
         const listRestaurant = await  this.restaurantRepository.find({});
         const filterRestaurant = listRestaurant.filter((el)=>{
-            return cleanAccents(el['nameRestaurant']).toLowerCase().indexOf(cleanAccents(name).toLowerCase())=== 0 
+          const nameRestaurant = cleanAccents(el['nameRestaurant']).toLowerCase().replace(/\s+/g,'');
+          const queryRestaurant = cleanAccents(name).toLowerCase().replace(/\s+/g,'');
+          return nameRestaurant.indexOf(queryRestaurant) ===0;
+
       })
-        // return  filterRestaurant;
+        return  filterRestaurant;
     }
     else
     {

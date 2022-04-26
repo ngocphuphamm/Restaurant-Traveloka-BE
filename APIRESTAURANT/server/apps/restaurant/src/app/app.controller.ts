@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FoodService } from '../food/food.service';
 
 import { AppService } from './app.service';
@@ -12,8 +12,8 @@ export class AppController {
     return this.appService.findAll();
   }
 
-  @Get('search/:name')
-  search(@Param('name')name : string)
+  @Get('search')
+  search(@Query('q') name : string)
   { 
     return this.appService.searchRestaurant(name);
   }

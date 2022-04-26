@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FoodService } from '../food/food.service';
 
 import { AppService } from './app.service';
-
+//
 @Controller('restaurant')
 export class AppController {
   constructor(private readonly appService: AppService,private foodService: FoodService) {}

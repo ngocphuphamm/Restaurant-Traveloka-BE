@@ -16,7 +16,9 @@ export class MenusController {
 
     @Get(':id')
     async getMenu(@Param('id') id: string) {
+        
         const menu = await this.menusService.getMenu(id);
+    
         // name and address restaurant
         const idRestaurant = menu['idRestaurant'];
         const restaurant = await this.appService.getInfoCarry(idRestaurant);
@@ -32,7 +34,7 @@ export class MenusController {
                     ON LM.idFood = F.idFood
                     WHERE idMenu = N'${id}'
         `);
-
+        console.log(someQuery);
         const returnRestaurant = {
             "idRestaurant": idRestaurant,
             "nameRestaurant": nameRestaurant,

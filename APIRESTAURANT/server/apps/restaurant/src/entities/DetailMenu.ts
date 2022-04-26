@@ -10,7 +10,7 @@ import { Food } from "./Food";
 import { Menu } from "./Menu";
 import { DetailTransaction } from "./DetailTransaction";
 
-@Index("PK__DetailMe__DA94101226874F88", ["idFood", "idMenu", "idRestaurant"], {
+@Index("PK__DetailMe__DA9410127257645E", ["idFood", "idMenu", "idRestaurant"], {
   unique: true,
 })
 @Entity("DetailMenu", { schema: "dbo" })

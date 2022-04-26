@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Food } from "./Food";
 
-@Index("PK__ListImag__42CA0DFCF170EB00", ["idImagesFood", "idFood"], {
+@Index("PK__ListImag__42CA0DFC5C1DE0AF", ["idImagesFood", "idFood"], {
   unique: true,
 })
 @Entity("ListImagesFood", { schema: "dbo" })

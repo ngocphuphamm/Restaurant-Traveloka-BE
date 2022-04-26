@@ -12,7 +12,7 @@ import { ImagesRestaurant } from "./ImagesRestaurant";
 import { Menu } from "./Menu";
 import { Staff } from "./Staff";
 
-@Index("PK__Restaura__6B94F09E3BB69972", ["idRestaurant"], { unique: true })
+@Index("PK__Restaura__6B94F09EF6823786", ["idRestaurant"], { unique: true })
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })

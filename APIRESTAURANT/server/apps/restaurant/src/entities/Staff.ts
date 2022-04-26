@@ -2,7 +2,7 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Restaurant } from "./Restaurant";
 import { StatisticalTables } from "./StatisticalTables";
 
-@Index("PK__Staff__98C886A948C8C502", ["idStaff"], { unique: true })
+@Index("PK__Staff__98C886A955457881", ["idStaff"], { unique: true })
 @Entity("Staff", { schema: "dbo" })
 export class Staff {
   @Column("nvarchar", { primary: true, name: "idStaff", length: 255 })

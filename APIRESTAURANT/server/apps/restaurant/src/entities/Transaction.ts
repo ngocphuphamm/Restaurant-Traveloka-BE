@@ -11,11 +11,14 @@ import { DetailTransaction } from "./DetailTransaction";
 import { StatisticalTables } from "./StatisticalTables";
 import { Payment } from "./Payment";
 
-@Index("PK__Transact__A0DB88159A77E53C", ["idTransaction"], { unique: true })
+@Index("PK__Transact__A0DB8815E336582A", ["idTransaction"], { unique: true })
 @Entity("Transaction", { schema: "dbo" })
 export class Transaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
   idTransaction: string;
+
+  @Column("nvarchar", { name: "idCustomer", nullable: true, length: 255 })
+  idCustomer: string | null;
 
   @Column("nvarchar", { name: "nameBook", length: 255 })
   nameBook: string;

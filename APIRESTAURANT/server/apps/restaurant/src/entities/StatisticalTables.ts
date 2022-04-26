@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
 import { Staff } from "./Staff";
 
-@Index("PK__Statisti__28D39C8B4094F381", ["idStatistical", "idTransaction"], {
+@Index("PK__Statisti__28D39C8B09A21D5F", ["idStatistical", "idTransaction"], {
   unique: true,
 })
 @Entity("StatisticalTables", { schema: "dbo" })

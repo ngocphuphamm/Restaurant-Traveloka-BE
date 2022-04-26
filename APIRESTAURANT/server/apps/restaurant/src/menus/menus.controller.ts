@@ -30,9 +30,9 @@ export class MenusController {
                     ON DT.idFood = F.idFood 
                     JOIN ListImagesFood LM
                     ON LM.idFood = F.idFood
-                    WHERE idMenu = N'${id}'
+                    WHERE idMenu = '${id}'
         `);
-
+        console.log(someQuery);
         const returnRestaurant = {
             "idRestaurant": idRestaurant,
             "nameRestaurant": nameRestaurant,

@@ -50,11 +50,12 @@ export class FoodService {
             const idMenu = await menu['idMenu'];
             const enityMnager = getManager();
             const someQuery = await enityMnager.query(`
-                        SELECT F.*,LM.urlImage
+                        SELECT F.*,LM.urlImage,DT.idRestaurant,R.nameRestaurant
                         FROM DetailMenu DT JOIN FOOD F
                         ON DT.idFood = F.idFood 
                         JOIN ListImagesFood LM
-                        ON LM.idFood = F.idFood
+                        ON LM.idFood = F.idFood JOIN Restaurant R 
+                        ON R.idRestaurant = DT.idRestaurant
                         WHERE idMenu = N'${idMenu}'
             `);
             return someQuery;

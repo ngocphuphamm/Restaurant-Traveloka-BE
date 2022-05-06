@@ -12,6 +12,10 @@ export class BookRestaurantService {
 
       ){}
 
+    async findAll()
+    {
+        return this.restaurantRepository.find();
+    }
 
       async addBookRestaurant(createBookDto : CreateBookDto) 
       { 

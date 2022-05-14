@@ -27,8 +27,9 @@ import { Transaction } from '../entities/Transaction';
 import { FoodModule } from '../food/food.module';
 import { MenusModule } from '../menus/menus.module';
 import { BookRestaurantModule } from '../book-restaurant/book-restaurant.module';
-import { BookFoodModule } from '../book-food/book-food.module';
+
 import { DetailTransaction } from '../entities/DetailTransaction';
+import { BillModule } from '../bill/bill.module';
 
 
 
@@ -51,7 +52,7 @@ import { DetailTransaction } from '../entities/DetailTransaction';
     FoodModule,
     MenusModule,
     BookRestaurantModule,
-    BookFoodModule
+    BillModule
   ],
   controllers: [AppController],
   providers: [AppService],

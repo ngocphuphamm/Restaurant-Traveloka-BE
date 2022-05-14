@@ -1,19 +1,18 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-} from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
 import { DetailMenu } from "./DetailMenu";
 
-@Index("PK__DetailTr__A0DB88151485A09E", ["idTransaction"], { unique: true })
+@Index("PK__DetailTr__C58DC5847EA0B09F", ["idDetailTransaction"], {
+  unique: true,
+})
 @Entity("DetailTransaction", { schema: "dbo" })
 export class DetailTransaction {
-  @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
-  idTransaction: string;
+  @Column("nvarchar", {
+    primary: true,
+    name: "idDetailTransaction",
+    length: 255,
+  })
+  idDetailTransaction: string;
 
   @Column("int", { name: "qty", nullable: true })
   qty: number | null;
@@ -21,11 +20,11 @@ export class DetailTransaction {
   @Column("float", { name: "intoMoney", nullable: true, precision: 53 })
   intoMoney: number | null;
 
-  @OneToOne(() => Transaction, (transaction) => transaction.detailTransaction)
+  @ManyToOne(() => Transaction, (transaction) => transaction.detailTransactions)
   @JoinColumn([
     { name: "idTransaction", referencedColumnName: "idTransaction" },
   ])
-  idTransaction2: Transaction;
+  idTransaction: Transaction;
 
   @ManyToOne(() => DetailMenu, (detailMenu) => detailMenu.detailTransactions)
   @JoinColumn([

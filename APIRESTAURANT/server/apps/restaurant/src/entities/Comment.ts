@@ -3,7 +3,7 @@ import { Restaurant } from "./Restaurant";
 import { Customer } from "./Customer";
 
 @Index(
-  "PK__Comment__699207DF612E9FFC",
+  "PK__Comment__699207DFB605EB26",
   ["idRestaurant", "idCustomer", "idComment"],
   { unique: true }
 )

@@ -5,13 +5,12 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
 } from "typeorm";
 import { DetailTransaction } from "./DetailTransaction";
 import { StatisticalTables } from "./StatisticalTables";
 import { Payment } from "./Payment";
 
-@Index("PK__Transact__A0DB8815E336582A", ["idTransaction"], { unique: true })
+@Index("PK__Transact__A0DB8815BEA69DFC", ["idTransaction"], { unique: true })
 @Entity("Transaction", { schema: "dbo" })
 export class Transaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
@@ -55,11 +54,11 @@ export class Transaction {
   })
   updatedAt: Date | null;
 
-  @OneToOne(
+  @OneToMany(
     () => DetailTransaction,
-    (detailTransaction) => detailTransaction.idTransaction2
+    (detailTransaction) => detailTransaction.idTransaction
   )
-  detailTransaction: DetailTransaction;
+  detailTransactions: DetailTransaction[];
 
   @OneToMany(
     () => StatisticalTables,

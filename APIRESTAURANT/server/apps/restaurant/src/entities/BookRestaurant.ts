@@ -15,6 +15,7 @@ export class BookRestaurant {
   @Column("nvarchar", { name: "nameBook", length: 255 })
   nameBook: string;
 
+
   @Column("int", { name: "phoneBook" })
   phoneBook: number;
 
@@ -33,6 +34,9 @@ export class BookRestaurant {
 
   @Column("bit", { name: "status" })
   status: boolean;
+
+  @Column("bit", { name: "bookingSession" })
+  bookingSession: boolean;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.bookRestaurants)
   @JoinColumn([{ name: "idRestaurant", referencedColumnName: "idRestaurant" }])

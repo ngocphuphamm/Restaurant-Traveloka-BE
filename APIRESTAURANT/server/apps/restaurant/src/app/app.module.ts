@@ -43,7 +43,7 @@ import { BillModule } from '../bill/bill.module';
       host: 'localhost',
       port: 1433,
       username: 'sa',
-      password: 'ngocphu@123',
+      password: 'Qq12345678',
       database: 'restaurantt',
       entities: [BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction],
 

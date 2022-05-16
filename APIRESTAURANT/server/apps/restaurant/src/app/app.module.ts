@@ -40,7 +40,7 @@ import { BillModule } from '../bill/bill.module';
   imports: [
      TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'localhost',
+      host: '95.111.203.4',
       port: 1433,
       username: 'sa',
       password: 'Qq123456789',

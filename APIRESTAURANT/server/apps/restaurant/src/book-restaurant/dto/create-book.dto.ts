@@ -3,7 +3,7 @@ export class CreateBookDto {
     nameBook: string;
     phoneBook: number;
     dateBook : Date;
-    timeBook: Date;
+    bookingSession: boolean;
     createdAt : Date;
-    status: number;
+    status: boolean;
 }

@@ -21,11 +21,10 @@ export class AppService {
 
   //{{baseUrl}}/api/:name  
   async searchRestaurant(name:string) : Promise<Restaurant [] >  {
-  
     if(name)
     {
           
-        const listRestaurant = await  this.restaurantRepository.find({});
+        const listRestaurant = await  this.restaurantRepository.find({relations:['menus','imagesRestaurants']});
         const filterRestaurant = listRestaurant.filter((el)=>{
           const nameRestaurant = cleanAccents(el['nameRestaurant']).toLowerCase().replace(/\s+/g,'');
           const queryRestaurant = cleanAccents(name).toLowerCase().replace(/\s+/g,'');

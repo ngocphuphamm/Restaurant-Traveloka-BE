@@ -17,7 +17,7 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://95.111.203.4:${port}/${globalPrefix}`
+    `🚀 Application is running on: ${process.env.HOSTLOCAL}${port}/${globalPrefix}`
   );
 }
 

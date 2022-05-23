@@ -36,7 +36,7 @@ export class BookRestaurantService {
             .into(BookRestaurant)
             .values([
                 { idBookRestaurant : idBookRestaurant , idRestaurant :createBookDto.idRestaurant,nameBook : createBookDto.nameBook,
-                                    phoneBook : createBookDto.phoneBook ,  dateBook:createBookDto.dateBook,timeBook : createBookDto.timeBook ,createdAt : createBookDto.createdAt,status : false }, 
+                                    phoneBook : createBookDto.phoneBook ,  dateBook:createBookDto.dateBook,bookingSession : createBookDto.bookingSession ,createdAt : createBookDto.createdAt,status : false }, 
           
              ])
             .execute();

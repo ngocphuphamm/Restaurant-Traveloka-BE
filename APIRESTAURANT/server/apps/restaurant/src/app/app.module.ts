@@ -40,19 +40,20 @@ import { BillModule } from '../bill/bill.module';
   imports: [
      TypeOrmModule.forRoot({
       type: 'mssql',
-      host: '95.111.203.4',
+      host: process.env.HOST,
       port: 1433,
       username: 'sa',
-      password: 'Qq123456789',
-      database: 'restaurantt',
-      entities: [BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction],
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+      entities: [BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction,],
 
     }),
     TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction]),
     FoodModule,
     MenusModule,
     BookRestaurantModule,
-    BillModule
+    BillModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

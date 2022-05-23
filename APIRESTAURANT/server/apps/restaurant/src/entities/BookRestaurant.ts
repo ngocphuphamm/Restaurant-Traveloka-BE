@@ -22,9 +22,6 @@ export class BookRestaurant {
   @Column("date", { name: "dateBook" })
   dateBook: Date;
 
-  @Column("time", { name: "timeBook" })
-  timeBook: Date;
-
   @Column("datetime", {
     name: "createdAt",
     nullable: true,

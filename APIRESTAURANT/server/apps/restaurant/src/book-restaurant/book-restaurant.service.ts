@@ -25,8 +25,6 @@ export class BookRestaurantService {
   }
 
   async addBookRestaurant(createBookDto: CreateBookDto) {
-    
-    console.log(createBookDto)
     let statusBook;
     createBookDto.bookingSession === true ? statusBook = 1 : statusBook = 0
     const enityMnager = getManager();

@@ -20,6 +20,6 @@ export class BookRestaurantController {
     @Get('getBook')
     async getBookRestaurant(@Body() req)
     {
-        console.log(req.dateBook)
+       return this.BookRestaurantService.getQtyBookRestaurant(req.body)
     }
 }

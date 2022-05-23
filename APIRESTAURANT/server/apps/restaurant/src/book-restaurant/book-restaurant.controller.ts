@@ -17,4 +17,9 @@ export class BookRestaurantController {
         return this.BookRestaurantService.addBookRestaurant(createBookDto);
       
     }
+    @Get('getBook')
+    async getBookRestaurant(@Body() req)
+    {
+        console.log(req.dateBook)
+    }
 }

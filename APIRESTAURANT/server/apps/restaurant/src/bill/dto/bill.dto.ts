@@ -3,6 +3,7 @@ import { DetailTransactionDTO } from "./dtoDetailTransaction";
 export class BillDto {
     nameBook : string ; 
     addressBook : string; 
+    emailBook : string ;
     phoneBook : number; 
     status  : number ; 
     shipping : number ;  

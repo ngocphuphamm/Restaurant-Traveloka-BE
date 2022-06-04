@@ -1,18 +1,9 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-} from "typeorm";
+import { Column, Entity, Index, OneToMany } from "typeorm";
 import { BookRestaurant } from "./BookRestaurant";
-import { Comment } from "./Comment";
 import { ImagesRestaurant } from "./ImagesRestaurant";
 import { Menu } from "./Menu";
-import { Staff } from "./Staff";
 
-@Index("PK__Restaura__6B94F09ED1C2F6DF", ["idRestaurant"], { unique: true })
+@Index("PK__Restaura__6B94F09E27174142", ["idRestaurant"], { unique: true })
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })
@@ -42,14 +33,14 @@ export class Restaurant {
   @Column("ntext", { name: "descriptionRestaurant" })
   descriptionRestaurant: string;
 
+  @Column("nvarchar", { name: "idStaff", length: 255 })
+  idStaff: string;
+
   @OneToMany(
     () => BookRestaurant,
     (bookRestaurant) => bookRestaurant.idRestaurant2
   )
   bookRestaurants: BookRestaurant[];
-
-  @OneToMany(() => Comment, (comment) => comment.idRestaurant2)
-  comments: Comment[];
 
   @OneToMany(
     () => ImagesRestaurant,
@@ -59,8 +50,4 @@ export class Restaurant {
 
   @OneToMany(() => Menu, (menu) => menu.idRestaurant2)
   menus: Menu[];
-
-  @ManyToOne(() => Staff, (staff) => staff.restaurants)
-  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
-  idStaff: Staff;
 }

@@ -10,7 +10,7 @@ import { DetailTransaction } from "./DetailTransaction";
 import { StatisticalTables } from "./StatisticalTables";
 import { Payment } from "./Payment";
 
-@Index("PK__Transact__A0DB8815BEA69DFC", ["idTransaction"], { unique: true })
+@Index("PK__Transact__A0DB8815F7A03EF5", ["idTransaction"], { unique: true })
 @Entity("Transaction", { schema: "dbo" })
 export class Transaction {
   @Column("nvarchar", { primary: true, name: "idTransaction", length: 255 })
@@ -24,7 +24,9 @@ export class Transaction {
 
   @Column("nvarchar", { name: "addressBook", length: 255 })
   addressBook: string;
-
+  
+  @Column("nvarchar", { name: "emailBook", length: 255 })
+  emailBook: string;
   @Column("int", { name: "phoneBook" })
   phoneBook: number;
 

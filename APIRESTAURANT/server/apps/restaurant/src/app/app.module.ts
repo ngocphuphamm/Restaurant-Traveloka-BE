@@ -9,8 +9,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BookRestaurant } from '../entities/BookRestaurant';
-import { Comment } from '../entities/Comment';
-import { Customer } from '../entities/Customer';
 import { DetailMenu } from '../entities/DetailMenu';
 
 
@@ -20,7 +18,6 @@ import { Menu } from '../entities/Menu';
 
 import { Payment } from '../entities/Payment';
 import { Restaurant } from '../entities/Restaurant';
-import { Staff } from '../entities/Staff';
 import { StatisticalTables } from '../entities/StatisticalTables';
 import { Transaction } from '../entities/Transaction';
 
@@ -45,10 +42,10 @@ import { BillModule } from '../bill/bill.module';
       username: 'sa',
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
-      entities: [BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction,],
+      entities: [BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,StatisticalTables,Transaction,DetailTransaction,],
 
     }),
-    TypeOrmModule.forFeature([BookRestaurant,Comment,Customer,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction,DetailTransaction]),
+    TypeOrmModule.forFeature([BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,StatisticalTables,Transaction,DetailTransaction]),
     FoodModule,
     MenusModule,
     BookRestaurantModule,

@@ -35,7 +35,7 @@ export class BillService {
         .insert()
         .into(Transaction)
         .values([
-            {idTransaction : idTransaction ,nameBook : dtoBill['nameBook'],addressBook : dtoBill['addressBook'],
+            {idTransaction : idTransaction ,nameBook : dtoBill['nameBook'],addressBook : dtoBill['addressBook'], emailBook : dtoBill['emailBook'],
                              phoneBook : dtoBill['phoneBook'],status : dtoBill['status'],shipping : dtoBill['shipping'],
                             sumQty : dtoBill['sumQty'],totalMoney : dtoBill['totalMoney'],idPayment : (()=>idPayment),idCustomer : dtoBill['idCustomer']}
       

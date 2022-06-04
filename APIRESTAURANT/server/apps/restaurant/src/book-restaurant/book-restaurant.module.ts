@@ -14,13 +14,12 @@ import { Menu } from '../entities/Menu';
 
 import { Payment } from '../entities/Payment';
 import { Restaurant } from '../entities/Restaurant';
-import { Staff } from '../entities/Staff';
 import { StatisticalTables } from '../entities/StatisticalTables';
 import { Transaction } from '../entities/Transaction';
 //
 @Module({
   providers: [BookRestaurantService],
   controllers: [BookRestaurantController],
-  imports : [  TypeOrmModule.forFeature([BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,Staff,StatisticalTables,Transaction]),]
+  imports : [  TypeOrmModule.forFeature([BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,StatisticalTables,Transaction]),]
 })
 export class BookRestaurantModule {}

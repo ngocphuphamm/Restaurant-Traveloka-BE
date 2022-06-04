@@ -54,7 +54,9 @@ export class BookRestaurantService {
         .values([
           {
             idBookRestaurant: idBookRestaurant, idRestaurant: createBookDto.idRestaurant, nameBook: createBookDto.nameBook,
-            phoneBook: createBookDto.phoneBook, dateBook: createBookDto.dateBook, bookingSession: createBookDto.bookingSession, createdAt: createBookDto.createdAt, status: false
+            phoneBook: createBookDto.phoneBook, dateBook: createBookDto.dateBook, bookingSession: createBookDto.bookingSession, createdAt: createBookDto.createdAt, status: false,
+            idCustomer: createBookDto.idCustomer
+          
           },
 
         ])

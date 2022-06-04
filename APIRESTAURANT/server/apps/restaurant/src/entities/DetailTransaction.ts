@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
 import { DetailMenu } from "./DetailMenu";
 
-@Index("PK__DetailTr__C58DC5847EA0B09F", ["idDetailTransaction"], {
+@Index("PK__DetailTr__C58DC58481E30BFB", ["idDetailTransaction"], {
   unique: true,
 })
 @Entity("DetailTransaction", { schema: "dbo" })

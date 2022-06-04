@@ -1,8 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Transaction } from "./Transaction";
-import { Staff } from "./Staff";
 
-@Index("PK__Statisti__28D39C8BA38D1922", ["idStatistical", "idTransaction"], {
+@Index("PK__Statisti__28D39C8B4F63FE13", ["idStatistical", "idTransaction"], {
   unique: true,
 })
 @Entity("StatisticalTables", { schema: "dbo" })
@@ -46,8 +45,4 @@ export class StatisticalTables {
     { name: "idTransaction", referencedColumnName: "idTransaction" },
   ])
   idTransaction2: Transaction;
-
-  @ManyToOne(() => Staff, (staff) => staff.statisticalTables)
-  @JoinColumn([{ name: "idStaff", referencedColumnName: "idStaff" }])
-  idStaff: Staff;
 }

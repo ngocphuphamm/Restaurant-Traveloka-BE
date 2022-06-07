@@ -14,10 +14,12 @@
     "@nestjs/platform-express": "^8.4.3",
     "@nestjs/serve-static": "^2.2.2",
     "@nestjs/typeorm": "^8.0.3",
+    "class-validator": "^0.13.2",
     "joi": "^17.6.0",
     "mssql": "^6.4.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
+    "stripe": "^9.6.0",
     "tslib": "^2.0.0",
     "typeorm": "^0.2.45"
   },

@@ -34,7 +34,6 @@ export class MenusController {
                     ON LM.idFood = F.idFood
                     WHERE idMenu = '${id}'
         `);
-        console.log(someQuery);
         const returnRestaurant = {
             "idRestaurant": idRestaurant,
             "nameRestaurant": nameRestaurant,

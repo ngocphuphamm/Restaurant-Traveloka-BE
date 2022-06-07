@@ -3,19 +3,24 @@ import { Repository } from 'typeorm/repository/Repository';
 import { Transaction } from '../entities/Transaction';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DetailService } from '../menus/detailmenu.service';
-
+import Stripe from 'stripe';
 import { DetailTransactionService } from './detailBill.service';
 import { BillDto } from './dto/bill.dto';
 import { DetailTransaction } from '../entities/DetailTransaction';
 import { getConnection, getManager } from 'typeorm';
+import { CreatePaymentDto } from './dto/createdPaymentDto';
 @Injectable()
 export class BillService {
+    private stripe: Stripe;
+
     constructor(
         @InjectRepository(Transaction)
         private TransactionRepository: Repository<Transaction>,
         private  readonly detailBillService  : DetailTransactionService
     )   {
-
+        this.stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
+            apiVersion: '2020-08-27',
+          });
     }
     async insertBillRestaurant(dtoBill: BillDto)
     {
@@ -49,9 +54,33 @@ export class BillService {
         }
    
          await this.detailBillService.insertDetailBill(dtoBill['detailTransaction']);
-        return {
+        
+        
+        
+        
+        
+         return {
             success : true,
-            msg : "Thanh COng"
+            transactionId  : idTransaction,
+            msg : "SUCCESS"
         } ;
+    }
+
+    calculateAmount(amount: any) {
+        const toUsd = amount / 23;
+        const total = parseInt(toUsd.toFixed(2).replace('.', ''));
+        return total;
+      }
+    async paymentStripe(createPaymentDto: CreatePaymentDto)
+    {
+        const paymentIntent = await this.stripe.paymentIntents.create({
+            amount: this.calculateAmount(createPaymentDto.amount),
+            // customer: createPaymentDto.customerId,
+            automatic_payment_methods: {
+              enabled: true,
+            },
+            currency: `${process.env.STRIPE_CURRENCY}`,
+          });
+          return paymentIntent.client_secret;
     }
 }

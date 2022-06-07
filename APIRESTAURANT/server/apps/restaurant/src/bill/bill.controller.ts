@@ -4,6 +4,7 @@ import { BillService } from './bill.service';
 import { DetailTransactionService } from './detailBill.service';
 import { BillDto } from './dto/bill.dto';
 import { Response } from 'express';
+import { CreatePaymentDto } from './dto/createdPaymentDto';
 @Controller('bill')
 export class BillController {
 
@@ -13,6 +14,12 @@ export class BillController {
        
         return await this.billService.insertBillRestaurant(createBillDto);
      
+    }
+
+    @Post('paymentStripe')
+    paymentStripe(@Body()  createPaymentDto: CreatePaymentDto)
+    {
+        return this.billService.paymentStripe(createPaymentDto);
     }
 }
 

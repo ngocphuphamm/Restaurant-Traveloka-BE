@@ -15,7 +15,6 @@ export class AppService {
 
   //  //{{baseUrl}}/api/ 
   async findAll(): Promise<Restaurant[]> {
-      console.log("Da vao ");
     return this.restaurantRepository.find({relations:['imagesRestaurants']});
   }
 

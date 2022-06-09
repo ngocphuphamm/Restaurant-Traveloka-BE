@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, getManager, Repository } from 'typeorm';
+import { Restaurant } from '../entities/Restaurant';
 import { Transaction } from '../entities/Transaction';
 
 @Injectable()
@@ -8,7 +9,9 @@ export class AdminService {
     connection: any;
     constructor(
         @InjectRepository(Transaction)
-        private transactionRepository: Repository<Transaction>
+        private transactionRepository: Repository<Transaction>,
+        @InjectRepository(Restaurant)
+        private restaurantRepository: Repository<Restaurant>,
     ) { }
 
     async getDashBoard(idRestaurant): Promise<any> {
@@ -64,6 +67,12 @@ export class AdminService {
                 msg: "FAILED ID RESTAURANT"
             }
         }
+
+    }
+
+    async getRestaurantAdmin(idStaff)
+    {
+        return await this.restaurantRepository.find({where :{idStaff : idStaff},relations:['imagesRestaurants']});
 
     }
 }

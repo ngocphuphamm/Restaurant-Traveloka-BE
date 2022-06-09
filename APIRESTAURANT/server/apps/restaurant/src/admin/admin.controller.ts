@@ -9,4 +9,10 @@ export class AdminController {
     {
         return this.adminService.getDashBoard(idRestaurant)
     }
+
+    @Get('getRestaurantAdmin/:idStaff')
+    async getRestaurantAdmin(@Param('idStaff') idStaff: string) : Promise<any>
+    { 
+        return this.adminService.getRestaurantAdmin(idStaff)
+    }
 }

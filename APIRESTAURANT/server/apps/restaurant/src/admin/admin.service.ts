@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, getManager, Repository } from 'typeorm';
+import {  getConnection, getManager, Repository } from 'typeorm';
+import { ImagesRestaurant } from '../entities/ImagesRestaurant';
 import { Restaurant } from '../entities/Restaurant';
 import { Transaction } from '../entities/Transaction';
-
+import { RestaurantDto } from './dto/dtoRestaurant';
+import { customObjectImage} from './dto/interFace';
+const shortid = require('shortid');
 @Injectable()
 export class AdminService {
     connection: any;
@@ -12,6 +15,8 @@ export class AdminService {
         private transactionRepository: Repository<Transaction>,
         @InjectRepository(Restaurant)
         private restaurantRepository: Repository<Restaurant>,
+        @InjectRepository(ImagesRestaurant)
+        private imagesRestaurantRepository: Repository<ImagesRestaurant>,
     ) { }
 
     async getDashBoard(idRestaurant): Promise<any> {
@@ -75,4 +80,64 @@ export class AdminService {
         return await this.restaurantRepository.find({where :{idStaff : idStaff},relations:['imagesRestaurants']});
 
     }
+    async createRestaurant( listImageRestaurant,restaurantDto : RestaurantDto)
+    {
+        try
+        {
+            const enityMnager = getManager();
+            const countRestaurant =  await enityMnager.query(`
+            SELECT COUNT(*) as sl
+            FROM Restaurant
+            `);
+            let getLengthRestaurant;
+            for (let i = 0; i < countRestaurant.length; i++) {
+                getLengthRestaurant = Number(countRestaurant[i].sl);
+            }
+            const idRestaurant = `R${getLengthRestaurant + 1}`;
+           const newRestaurant =  await getConnection()
+            .createQueryBuilder()
+            .insert()
+            .into(Restaurant)
+            .values([
+              {
+                idRestaurant: idRestaurant, 
+                nameRestaurant : restaurantDto.nameRestaurant,
+                addressRestaurant : restaurantDto.addressRestaurant,
+                descriptionRestaurant : restaurantDto.descriptionRestaurant,
+                idStaff  : restaurantDto.idStaff,
+                priceService : restaurantDto.priceService,
+                startTIme : '2019-03-02 06:00:00.000',
+                endTime : '2020-03-02 22:00:00.000',
+                likes : 0 ,
+                dislikes : 0,
+    
+    
+              },
+    
+            ])
+            .execute();
+           await listImageRestaurant.forEach(async (el)=>{
+            const entityMnager = getManager();
+            await entityMnager.query(`
+                                    INSERT INTO ImagesRestaurant (idImagesRestaurant,urlRestaurant,idRestaurant)
+                                    VALUES ('IM${shortid.generate()}',N'${process.env.HOSTIMAGE}/${el.filename}/','${idRestaurant}')
+                       `)
+            })
+            return {
+                success: true,
+                msg : "SUCCESS CREATED"
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+            return {
+                success: false,
+                msg : "FAILED CREATED"
+            }
+        }
+       
+
+    }
+
 }

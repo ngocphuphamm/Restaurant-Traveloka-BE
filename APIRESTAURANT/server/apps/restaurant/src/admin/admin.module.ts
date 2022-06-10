@@ -15,10 +15,14 @@ import { Restaurant } from '../entities/Restaurant';
 import { StatisticalTables } from '../entities/StatisticalTables';
 import { Transaction } from '../entities/Transaction';
 import { DetailTransaction } from '../entities/DetailTransaction';
+import { MulterModule } from '@nestjs/platform-express';
 @Module({
   providers: [AdminService],
   controllers: [AdminController],
-  imports : [  TypeOrmModule.forFeature([BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,StatisticalTables,Transaction,DetailTransaction]),],
+  imports : [  TypeOrmModule.forFeature([BookRestaurant,DetailMenu,Food,ImagesRestaurant,ListImagesFood,Menu,Payment,Restaurant,StatisticalTables,Transaction,DetailTransaction]),
+  MulterModule.register({
+    dest: './files',
+  })],
   exports : [AdminService]
 })
 export class AdminModule {}

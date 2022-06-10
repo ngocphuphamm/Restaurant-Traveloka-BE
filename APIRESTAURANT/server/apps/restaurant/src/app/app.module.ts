@@ -29,6 +29,7 @@ import { DetailTransaction } from '../entities/DetailTransaction';
 import { BillModule } from '../bill/bill.module';
 
 import { AdminModule } from '../admin/admin.module';
+import { HomeModule } from '../home/home.module';
 
 
 
@@ -50,7 +51,9 @@ import { AdminModule } from '../admin/admin.module';
     MenusModule,
     BookRestaurantModule,
     BillModule,
-    AdminModule
+    AdminModule,
+    HomeModule
+    
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,6 @@
-import { Injectable, MethodNotAllowedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Menu } from '../entities/Menu';
 import { Restaurant } from '../entities/Restaurant';
 import { cleanAccents } from '../function/function';
 
@@ -58,11 +57,6 @@ export class AppService {
   }
 
 
-  //{{baseUrl}}//
-
-  getData(): { message: string } {
-    return { message: 'Welcome to restaurant!' };
-  }
 
 
 

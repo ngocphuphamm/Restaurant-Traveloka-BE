@@ -41,9 +41,11 @@ export class AdminController {
             fileFilter: imageFileFilter,
         }),
     )
-    async uploadMultipleFiles(@UploadedFiles() listImageRestaurant ,@Body() restaurantDto : RestaurantDto) : Promise<any> {
+    async uploadMultipleFiles(@UploadedFiles() listImageRestaurant 
+    ,@Body() restaurantDto : RestaurantDto
+    ) : Promise<any> {
         return this.adminService.createRestaurant(listImageRestaurant,restaurantDto) 
-        
+ 
         // const response = [];
         // files.forEach(file => {
         //     const fileReponse = {

@@ -94,7 +94,7 @@ export class AdminService {
                 getLengthRestaurant = Number(countRestaurant[i].sl);
             }
             const idRestaurant = `R${getLengthRestaurant + 1}`;
-           const newRestaurant =  await getConnection()
+            await getConnection()
             .createQueryBuilder()
             .insert()
             .into(Restaurant)
@@ -123,9 +123,16 @@ export class AdminService {
                                     VALUES ('IM${shortid.generate()}',N'${process.env.HOSTIMAGE}/${el.filename}/','${idRestaurant}')
                        `)
             })
+            const entityMnager = getManager();
+            await entityMnager.query(`
+                                    INSERT INTO Menu (idMenu,idRestaurant,nameMenu)
+                                    VALUES ('MN${shortid.generate()}','${idRestaurant}',N'Menu Nhà Hàng ${restaurantDto.nameRestaurant}')
+                       `)
+            
             return {
                 success: true,
-                msg : "SUCCESS CREATED"
+                msg : "SUCCESS CREATED",
+                idRestaurant
             }
         }
         catch(err)

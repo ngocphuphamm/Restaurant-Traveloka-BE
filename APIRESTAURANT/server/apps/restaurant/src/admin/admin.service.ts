@@ -5,6 +5,7 @@ import { ImagesRestaurant } from '../entities/ImagesRestaurant';
 import { Restaurant } from '../entities/Restaurant';
 import { Transaction } from '../entities/Transaction';
 import { RestaurantDto } from './dto/dtoRestaurant';
+import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
 import { customObjectImage} from './dto/interFace';
 const shortid = require('shortid');
 @Injectable()
@@ -120,7 +121,7 @@ export class AdminService {
             const entityMnager = getManager();
             await entityMnager.query(`
                                     INSERT INTO ImagesRestaurant (idImagesRestaurant,urlRestaurant,idRestaurant)
-                                    VALUES ('IM${shortid.generate()}',N'${process.env.HOSTIMAGE}/${el.filename}/','${idRestaurant}')
+                                    VALUES ('IM${shortid.generate()}',N'${process.env.HOSTIMAGE}/${el.filename}','${idRestaurant}')
                        `)
             })
             const entityMnager = getManager();
@@ -147,4 +148,65 @@ export class AdminService {
 
     }
 
+    async editRestaurant(idRestaurant,restaurantDto : RestaurantDtoEdit)
+    {
+        try
+        {
+             await this.restaurantRepository.update(idRestaurant,restaurantDto)
+            return {
+                success : true, 
+                msg : "SUCCESS EDIT"
+            }    
+        }
+        catch(err)
+        {
+            console.log(err);
+            return {
+                success: false,
+                msg : "FAILED"
+            }
+        }
+        
+    }
+    async getImage(idImage: string)
+    {
+        try{
+            const image = await this.imagesRestaurantRepository.findOne({
+                idImagesRestaurant : idImage
+            })
+            return({ 
+                success: true,
+                image
+            })
+        }
+        catch(err)
+        {
+            console.log(err);
+            return ({
+                success: false,
+                msg : "FAILED NOT FIND IMAGE"
+            })
+        }
+    }
+    async updateImageRestaurant(idImage: string,fileImage) : Promise<any> {
+       try{
+    
+            const urlRestaurant = `${process.env.HOSTIMAGE}/${fileImage.filename}`;
+            const entityMnager = getManager();
+            await entityMnager.query(`
+                                   UPDATE ImagesRestaurant
+                                   set urlRestaurant = N'${urlRestaurant}'
+                                   WHERE idImagesRestaurant = N'${idImage}'
+                       `)
+            return (
+                {
+                    success: true, 
+                    msg : "SUCCESS EDIT IMAGE"
+                }
+            )
+       }
+       catch (err){
+            console.log(err)
+       }
+    }
 }

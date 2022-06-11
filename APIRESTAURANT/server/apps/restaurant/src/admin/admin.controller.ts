@@ -4,6 +4,7 @@ import { editFileName, imageFileFilter } from '../function/function';
 import { AdminService } from './admin.service';
 import { diskStorage } from 'multer';
 import { RestaurantDto } from './dto/dtoRestaurant';
+import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
 @Controller('admin')
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
@@ -19,16 +20,12 @@ export class AdminController {
     }
 
 
-    @Post('uploadimage')
+    @Post('editImageRestaurant/:idImage')
     @UseInterceptors(
         FileInterceptor('image'),
     )
-    async uploadedFile(@UploadedFile() file) {
-        const response = {
-            originalname: file.originalname,
-            filename: file.filename,
-        };
-        return response;
+    async editImageRestaurant(@UploadedFile() file,@Param('idImage') idImage: string): Promise<any> {
+        return this.adminService.updateImageRestaurant(idImage,file)
     }
 
     @Post('restaurant/createRestaurant')
@@ -41,21 +38,23 @@ export class AdminController {
             fileFilter: imageFileFilter,
         }),
     )
-    async uploadMultipleFiles(@UploadedFiles() listImageRestaurant 
-    ,@Body() restaurantDto : RestaurantDto
+    async createRestaurant(@UploadedFiles() listImageRestaurant,@Body() restaurantDto : RestaurantDto
     ) : Promise<any> {
         return this.adminService.createRestaurant(listImageRestaurant,restaurantDto) 
- 
-        // const response = [];
-        // files.forEach(file => {
-        //     const fileReponse = {
-        //         originalname: file.originalname,
-        //         filename: file.filename,
-        //     };
-        //     response.push(fileReponse);
-        // });
-        // return response;
 
     }
-   
+
+    @Post('restaurant/editRestaurant/:idRestaurant')
+    async editRestaurant(@Param('idRestaurant') idRestaurant : string ,@Body() restaurantDto : RestaurantDtoEdit
+    ) : Promise<any> {
+        return this.adminService.editRestaurant(idRestaurant,restaurantDto) 
+
+    }
+
+    @Get('/getImage/:idImage')
+    async getImage(@Param('idImage') idImage : string)
+    {
+        return this.adminService.getImage(idImage)
+    }
+
 }

@@ -6,6 +6,9 @@ import { Menu } from "./Menu";
 @Index("PK__Restaura__6B94F09E27174142", ["idRestaurant"], { unique: true })
 @Entity("Restaurant", { schema: "dbo" })
 export class Restaurant {
+  static update() {
+      throw new Error('Method not implemented.');
+  }
   @Column("varchar", { primary: true, name: "idRestaurant", length: 255 })
   idRestaurant: string;
 

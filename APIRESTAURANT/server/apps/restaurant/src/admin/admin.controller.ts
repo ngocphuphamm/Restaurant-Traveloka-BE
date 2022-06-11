@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors, Body, Delete } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express/multer';
 import { editFileName, imageFileFilter } from '../function/function';
 import { AdminService } from './admin.service';
@@ -57,7 +57,7 @@ export class AdminController {
     {
         return this.adminService.getImage(idImage)
     }
-    @Post('deleteRestaurant/:idRestaurant')
+    @Delete('deleteRestaurant/:idRestaurant')
     async deleteRestaurant(@Param('idRestaurant') idRestaurant : string)
     {
         return this.adminService.deleteRestaurant(idRestaurant)
@@ -88,5 +88,7 @@ export class AdminController {
     {
         return this.adminService.editFood(idFood,foodDto)
     }
+    
+ 
 }
 

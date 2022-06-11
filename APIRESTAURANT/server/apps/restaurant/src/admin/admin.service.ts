@@ -1,7 +1,7 @@
 import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isEmpty } from 'class-validator';
-import {  getConnection, getManager, Repository } from 'typeorm';
+import { getConnection, getManager, Repository } from 'typeorm';
 import { Food } from '../entities/Food';
 import { ImagesRestaurant } from '../entities/ImagesRestaurant';
 import { ListImagesFood } from '../entities/ListImagesFood';
@@ -11,7 +11,7 @@ import { FoodDto } from './dto/dtoFood';
 import { FoodDtoEdit } from './dto/dtoFoodEdit';
 import { RestaurantDto } from './dto/dtoRestaurant';
 import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
-import { customObjectImage} from './dto/interFace';
+import { customObjectImage } from './dto/interFace';
 const shortid = require('shortid');
 @Injectable()
 export class AdminService {
@@ -48,33 +48,31 @@ export class AdminService {
             FROM DetailTransaction DT JOIN [Transaction] TS
             ON TS.idTransaction = DT.idTransaction
             WHERE DT.idRestaurant = '${idRestaurant}'  AND MONTH(TS.createdAt)  = MONTH(GETDATE()) `);
-            
+
             const sumMoney = await entityMnager.query(` SELECT SUM(DISTINCT totalMoney) AS sumMoney
             FROM DetailTransaction DT JOIN [Transaction] TS
             ON TS.idTransaction = DT.idTransaction
             WHERE DT.idRestaurant = '${idRestaurant}'   AND MONTH(TS.createdAt)  = MONTH(GETDATE())`)
-            if(countBill[0].countBill > 0 )
-            {
+            if (countBill[0].countBill > 0) {
                 return {
-                    success : true,
+                    success: true,
                     barchart,
                     sumFood: countFood[0].countFood,
-                    nameRestaurant : countFood[0].nameRestaurant,
-                    sumBill : countBill[0].countBill,
-                    sumMoney : sumMoney[0].sumMoney,
-    
+                    nameRestaurant: countFood[0].nameRestaurant,
+                    sumBill: countBill[0].countBill,
+                    sumMoney: sumMoney[0].sumMoney,
+
                 }
             }
-            else
-            {
+            else {
                 return {
-                    success : false,
-                    msg : "NOT DATA STATISTICAL",
+                    success: false,
+                    msg: "NOT DATA STATISTICAL",
                     sumFood: countFood[0].countFood,
-    
+
                 }
             }
-            
+
         }
         catch (err) {
             return {
@@ -85,17 +83,14 @@ export class AdminService {
 
     }
 
-    async getRestaurantAdmin(idStaff)
-    {
-        return await this.restaurantRepository.find({where :{idStaff : idStaff},relations:['imagesRestaurants']});
+    async getRestaurantAdmin(idStaff) {
+        return await this.restaurantRepository.find({ where: { idStaff: idStaff }, relations: ['imagesRestaurants'] });
 
     }
-    async createRestaurant( listImageRestaurant,restaurantDto : RestaurantDto)
-    {
-        try
-        {
+    async createRestaurant(listImageRestaurant, restaurantDto: RestaurantDto) {
+        try {
             const enityMnager = getManager();
-            const countRestaurant =  await enityMnager.query(`
+            const countRestaurant = await enityMnager.query(`
             SELECT COUNT(*) as sl
             FROM Restaurant
             `);
@@ -105,30 +100,30 @@ export class AdminService {
             }
             const idRestaurant = `R${getLengthRestaurant + 1}`;
             await getConnection()
-            .createQueryBuilder()
-            .insert()
-            .into(Restaurant)
-            .values([
-              {
-                idRestaurant: idRestaurant, 
-                nameRestaurant : restaurantDto.nameRestaurant,
-                addressRestaurant : restaurantDto.addressRestaurant,
-                descriptionRestaurant : restaurantDto.descriptionRestaurant,
-                idStaff  : restaurantDto.idStaff,
-                priceService : restaurantDto.priceService,
-                startTIme : '2019-03-02 06:00:00.000',
-                endTime : '2020-03-02 22:00:00.000',
-                likes : 0 ,
-                dislikes : 0,
-    
-    
-              },
-    
-            ])
-            .execute();
-           await listImageRestaurant.forEach(async (el)=>{
-            const entityMnager = getManager();
-            await entityMnager.query(`
+                .createQueryBuilder()
+                .insert()
+                .into(Restaurant)
+                .values([
+                    {
+                        idRestaurant: idRestaurant,
+                        nameRestaurant: restaurantDto.nameRestaurant,
+                        addressRestaurant: restaurantDto.addressRestaurant,
+                        descriptionRestaurant: restaurantDto.descriptionRestaurant,
+                        idStaff: restaurantDto.idStaff,
+                        priceService: restaurantDto.priceService,
+                        startTIme: '2019-03-02 06:00:00.000',
+                        endTime: '2020-03-02 22:00:00.000',
+                        likes: 0,
+                        dislikes: 0,
+
+
+                    },
+
+                ])
+                .execute();
+            await listImageRestaurant.forEach(async (el) => {
+                const entityMnager = getManager();
+                await entityMnager.query(`
                                     INSERT INTO ImagesRestaurant (idImagesRestaurant,urlRestaurant,idRestaurant)
                                     VALUES ('IM${shortid.generate()}',N'${process.env.HOSTIMAGE}/${el.filename}','${idRestaurant}')
                        `)
@@ -138,68 +133,62 @@ export class AdminService {
                                     INSERT INTO Menu (idMenu,idRestaurant,nameMenu)
                                     VALUES ('MN${shortid.generate()}','${idRestaurant}',N'Menu Nhà Hàng ${restaurantDto.nameRestaurant}')
                        `)
-            
+
             return {
                 success: true,
-                msg : "SUCCESS CREATED",
+                msg: "SUCCESS CREATED",
                 idRestaurant
             }
         }
-        catch(err)
-        {
+        catch (err) {
             console.log(err)
             return {
                 success: false,
-                msg : "FAILED CREATED"
+                msg: "FAILED CREATED"
             }
         }
-       
+
 
     }
 
-    async editRestaurant(idRestaurant,restaurantDto : RestaurantDtoEdit)
-    {
-        try
-        {
-             await this.restaurantRepository.update(idRestaurant,restaurantDto)
+    async editRestaurant(idRestaurant, restaurantDto: RestaurantDtoEdit) {
+        try {
+            await this.restaurantRepository.update(idRestaurant, restaurantDto)
             return {
-                success : true, 
-                msg : "SUCCESS EDIT"
-            }    
+                success: true,
+                msg: "SUCCESS EDIT"
+            }
         }
-        catch(err)
-        {
+        catch (err) {
             console.log(err);
             return {
                 success: false,
-                msg : "FAILED"
+                msg: "FAILED"
             }
         }
-        
+
     }
-    async getImage(idImage: string)
-    {
-        try{
+    async getImage(idImage: string) {
+        try {
             const image = await this.imagesRestaurantRepository.findOne({
-                idImagesRestaurant : idImage
+                idImagesRestaurant: idImage
             })
-            return({ 
+            return ({
                 success: true,
                 image
             })
         }
-        catch(err)
-        {
+        catch (err) {
             console.log(err);
             return ({
                 success: false,
-                msg : "FAILED NOT FIND IMAGE"
+                msg: "FAILED NOT FIND IMAGE"
             })
         }
     }
-    async updateImageRestaurant(idImage: string,fileImage) : Promise<any> {
-       try{
-    
+    async updateImageRestaurant(idImage: string, fileImage): Promise<any> {
+        try {
+
             const urlRestaurant = `${process.env.HOSTIMAGE}/${fileImage.filename}`;
             const entityMnager = getManager();
             await entityMnager.query(`
@@ -209,51 +198,73 @@ export class AdminService {
                        `)
             return (
                 {
-                    success: true, 
-                    msg : "SUCCESS EDIT IMAGE"
+                    success: true,
+                    msg: "SUCCESS EDIT IMAGE"
                 }
             )
-       }
-       catch (err){
+        }
+        catch (err) {
             console.log(err)
-       }
+        }
     }
 
-    async deleteRestaurant(idRestaurant : string)
-    {
-        return [];
-        // try{
-        //     const entityMnager = getManager();
-        //     await entityMnager.query(`
-        //                           DELETE 
-        //                           FROM Menu
-        //                `)
-        // }
-        // catch(err)
-        // {
-
-        // }
-    }
-
-    async createFood(file,idRestaurant : string,foodDto : FoodDto)
-    {
-        
+    async deleteRestaurant(idRestaurant: string) {
         try{
             const entityMnager = getManager();
-            const listIdMenu =   await entityMnager.query(`
+            await entityMnager.query(`
+            DELETE
+            FROM ImagesRestaurant
+            WHERE idRestaurant = '${idRestaurant}'
+            `)
+            await entityMnager.query(`
+            DELETE
+            FROM DetailTransaction 
+            WHERE idRestaurant = '${idRestaurant}' `)
+
+            await entityMnager.query(`
+           DELETE
+           FROM DetailMenu
+           WHERE idRestaurant = '${idRestaurant}'`)
+           await entityMnager.query(`
+           DELETE
+            FROM Menu
+            WHERE idRestaurant = '${idRestaurant}'`)
+            await entityMnager.query(`
+            DELETE
+            FROM Restaurant
+            WHERE idRestaurant = '${idRestaurant}'`)
+            return({
+                success: true,
+                msg : "DELETE SUCCESS"
+            })
+        }
+        catch (err){
+            console.log(err);
+            return {
+                success :false,
+                msg : "Delete Failed"
+            }
+        }
+    }
+
+    async createFood(file, idRestaurant: string, foodDto: FoodDto) {
+
+        try {
+            const entityMnager = getManager();
+            const listIdMenu = await entityMnager.query(`
                 SELECT idMenu
                 FROM Menu
                 WHERE idRestaurant= '${idRestaurant}' 
                            `)
-           
+
             const lengthFood = await entityMnager.query(`
                 SELECT COUNT(F.idFood) as qtyfood
                 FROM FOOD F 
             `)
-         
+
             const idMenu = listIdMenu[0].idMenu;
-            const idFood = lengthFood[0].qtyfood +1
-            
+            const idFood = lengthFood[0].qtyfood + 1
+
             await entityMnager.query(`
                 INSERT INTO FOOD (idFood,nameFood,priceFood,qty,qtyBook)
                 VALUES
@@ -270,28 +281,26 @@ export class AdminService {
                 `)
             return {
                 success: true,
-                msg : "Succes Created"
+                msg: "Succes Created"
             }
-            
+
         }
-        catch(err)
-        {
+        catch (err) {
             console.log(err)
             return {
                 success: false,
-                msg : "FAILED"
-                
+                msg: "FAILED"
+
             }
         }
-    
-        
+
+
     }
-    async editFoodImage(file ,idFood,dtoFood : FoodDto)
-    {
-        try{
-            
-          const entityMnager = getManager();
-           await entityMnager.query(`
+    async editFoodImage(file, idFood, dtoFood: FoodDto) {
+        try {
+
+            const entityMnager = getManager();
+            await entityMnager.query(`
             UPDATE ListImagesFood
             SET urlImage = N'${process.env.HOSTIMAGE}/${file.filename}'
             WHERE idFood = '${idFood}'
@@ -305,37 +314,35 @@ export class AdminService {
 
             return {
                 success: true,
-                msg : "EDIT SUCCESS"
+                msg: "EDIT SUCCESS"
             }
 
         }
-        catch (err)
-        {
+        catch (err) {
             console.log(err)
             return {
                 success: false,
-                msg : "EDIT FAILED"
+                msg: "EDIT FAILED"
             }
         }
     }
-    async editFood(idFood,dtoFood : FoodDto)
-    {
-        try{
-            
-            await this.foodRepository.update(idFood,dtoFood);
-          return {
+    async editFood(idFood, dtoFood: FoodDto) {
+        try {
+
+            await this.foodRepository.update(idFood, dtoFood);
+            return {
                 success: true,
-                msg : "EDIT SUCCESS"
+                msg: "EDIT SUCCESS"
             }
 
         }
-        catch (err)
-        {
+        catch (err) {
             console.log(err)
             return {
                 success: false,
-                msg : "EDIT FAILED"
+                msg: "EDIT FAILED"
             }
         }
     }
+  
 }

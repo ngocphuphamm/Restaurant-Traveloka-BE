@@ -1,5 +1,5 @@
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getManager, Repository } from 'typeorm';
 import { Food } from '../entities/Food';
@@ -62,5 +62,33 @@ export class FoodService {
         }   
         return []; 
       
+    }
+
+    async getFood( idFood : string)
+    {
+        try {
+            const enityMnager = getManager();
+            const someQuery = await enityMnager.query(`
+            select F.*,LF.urlImage
+            from Food F join ListImagesFood LF
+            on F.idFood = LF.idFood
+            WHERE LF.idFood = '${idFood}'
+            `);
+            
+            return{
+                success: true,
+                food : someQuery,
+                msg : "SUCCESS GET DETAIL"
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+            return{
+                success: false,
+                msg : "FAILED GET DETAIL"
+            }
+        }
+       
     }
 }

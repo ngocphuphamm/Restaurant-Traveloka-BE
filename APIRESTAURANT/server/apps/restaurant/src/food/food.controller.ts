@@ -24,8 +24,10 @@ export class FoodController {
    async getAllFoodAtRestaurant(@Param('id')id : string) : Promise<Food []> 
     {
         return this.foodService.getAllFoodAtRestaurant(id);
-  
-
-   
+    }
+    @Get('getFood/:idFood')
+    async getFood(@Param('idFood') idFood : string)
+    {
+        return this.foodService.getFood(idFood)
     }
 }

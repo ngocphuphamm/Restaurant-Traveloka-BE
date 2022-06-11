@@ -2,10 +2,13 @@ import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isEmpty } from 'class-validator';
 import {  getConnection, getManager, Repository } from 'typeorm';
+import { Food } from '../entities/Food';
 import { ImagesRestaurant } from '../entities/ImagesRestaurant';
+import { ListImagesFood } from '../entities/ListImagesFood';
 import { Restaurant } from '../entities/Restaurant';
 import { Transaction } from '../entities/Transaction';
 import { FoodDto } from './dto/dtoFood';
+import { FoodDtoEdit } from './dto/dtoFoodEdit';
 import { RestaurantDto } from './dto/dtoRestaurant';
 import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
 import { customObjectImage} from './dto/interFace';
@@ -20,6 +23,10 @@ export class AdminService {
         private restaurantRepository: Repository<Restaurant>,
         @InjectRepository(ImagesRestaurant)
         private imagesRestaurantRepository: Repository<ImagesRestaurant>,
+        @InjectRepository(Food)
+        private foodRepository: Repository<Food>,
+        @InjectRepository(ListImagesFood)
+        private imageFoodRepository: Repository<ListImagesFood>,
     ) { }
 
     async getDashBoard(idRestaurant): Promise<any> {
@@ -278,5 +285,57 @@ export class AdminService {
         }
     
         
+    }
+    async editFoodImage(file ,idFood,dtoFood : FoodDto)
+    {
+        try{
+            
+          const entityMnager = getManager();
+           await entityMnager.query(`
+            UPDATE ListImagesFood
+            SET urlImage = N'${process.env.HOSTIMAGE}/${file.filename}'
+            WHERE idFood = '${idFood}'
+            `)
+            await entityMnager.query(`
+            UPDATE Food
+            SET nameFood = N'${dtoFood.nameFood}' ,priceFood = N'${dtoFood.priceFood}'
+            WHERE idFood = '${idFood}'
+            `)
+
+
+            return {
+                success: true,
+                msg : "EDIT SUCCESS"
+            }
+
+        }
+        catch (err)
+        {
+            console.log(err)
+            return {
+                success: false,
+                msg : "EDIT FAILED"
+            }
+        }
+    }
+    async editFood(idFood,dtoFood : FoodDto)
+    {
+        try{
+            
+            await this.foodRepository.update(idFood,dtoFood);
+          return {
+                success: true,
+                msg : "EDIT SUCCESS"
+            }
+
+        }
+        catch (err)
+        {
+            console.log(err)
+            return {
+                success: false,
+                msg : "EDIT FAILED"
+            }
+        }
     }
 }

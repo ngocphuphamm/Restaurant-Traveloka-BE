@@ -1,9 +1,10 @@
 
 import { IsNotEmpty } from 'class-validator';
 
-export class FoodDto {
+export class FoodDtoEdit {
     @IsNotEmpty()
     nameFood : string ;
     @IsNotEmpty()
     priceFood : number ;
+   
 }

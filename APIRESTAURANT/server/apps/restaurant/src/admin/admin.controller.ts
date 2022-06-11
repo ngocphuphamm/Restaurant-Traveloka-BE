@@ -73,7 +73,20 @@ export class AdminController {
         return this.adminService.createFood(file,idRestaurant,foodDto)
     }
 
+    @UseInterceptors(
+        FileInterceptor('image'),
+    )
+    @Post('/menu/updateFoodImage/:idFood')
+    async editFoodImage(@Param('idFood') idFood : string,@UploadedFile() file,@Body()foodDto : FoodDto)
+    {
+        return this.adminService.editFoodImage(file,idFood,foodDto)
+    }
 
     
+    @Post('/menu/updateFood/:idFood')
+    async editFood(@Param('idFood') idFood : string,@Body()foodDto : FoodDto)
+    {
+        return this.adminService.editFood(idFood,foodDto)
+    }
 }
 

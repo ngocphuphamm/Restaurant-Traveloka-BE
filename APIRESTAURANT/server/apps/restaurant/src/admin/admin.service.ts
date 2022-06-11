@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { isEmpty } from 'class-validator';
 import {  getConnection, getManager, Repository } from 'typeorm';
 import { ImagesRestaurant } from '../entities/ImagesRestaurant';
 import { Restaurant } from '../entities/Restaurant';
 import { Transaction } from '../entities/Transaction';
+import { FoodDto } from './dto/dtoFood';
 import { RestaurantDto } from './dto/dtoRestaurant';
 import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
 import { customObjectImage} from './dto/interFace';
@@ -208,5 +210,73 @@ export class AdminService {
        catch (err){
             console.log(err)
        }
+    }
+
+    async deleteRestaurant(idRestaurant : string)
+    {
+        return [];
+        // try{
+        //     const entityMnager = getManager();
+        //     await entityMnager.query(`
+        //                           DELETE 
+        //                           FROM Menu
+        //                `)
+        // }
+        // catch(err)
+        // {
+
+        // }
+    }
+
+    async createFood(file,idRestaurant : string,foodDto : FoodDto)
+    {
+        
+        try{
+            const entityMnager = getManager();
+            const listIdMenu =   await entityMnager.query(`
+                SELECT idMenu
+                FROM Menu
+                WHERE idRestaurant= '${idRestaurant}' 
+                           `)
+           
+            const lengthFood = await entityMnager.query(`
+                SELECT COUNT(F.idFood) as qtyfood
+                FROM FOOD F 
+            `)
+         
+            const idMenu = listIdMenu[0].idMenu;
+            const idFood = lengthFood[0].qtyfood +1
+            
+            await entityMnager.query(`
+                INSERT INTO FOOD (idFood,nameFood,priceFood,qty,qtyBook)
+                VALUES
+                        ('F${idFood}',N'${foodDto.nameFood}',${foodDto.priceFood},${0},${0})
+            `)
+            await entityMnager.query(`
+                INSERT INTO DETAILMENU (idFood,idMenu,idRestaurant)
+                VALUES  
+                        ('F${idFood}','${idMenu}','${idRestaurant}')
+            `)
+            await entityMnager.query(`
+                INSERT INTO ListImagesFood(idImagesFood,idFood,urlImage)
+                VALUES('IF${shortid.generate()}','F${idFood}',N'${process.env.HOSTIMAGE}/${file.filename}')
+                `)
+            return {
+                success: true,
+                msg : "Succes Created"
+            }
+            
+        }
+        catch(err)
+        {
+            console.log(err)
+            return {
+                success: false,
+                msg : "FAILED"
+                
+            }
+        }
+    
+        
     }
 }

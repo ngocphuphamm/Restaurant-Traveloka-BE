@@ -5,6 +5,7 @@ import { AdminService } from './admin.service';
 import { diskStorage } from 'multer';
 import { RestaurantDto } from './dto/dtoRestaurant';
 import { RestaurantDtoEdit } from './dto/dtoRestaurantEdit';
+import { FoodDto } from './dto/dtoFood';
 @Controller('admin')
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
@@ -56,5 +57,20 @@ export class AdminController {
     {
         return this.adminService.getImage(idImage)
     }
+    @Post('deleteRestaurant/:idRestaurant')
+    async deleteRestaurant(@Param('idRestaurant') idRestaurant : string)
+    {
+        return this.adminService.deleteRestaurant(idRestaurant)
+    }
 
+
+    @UseInterceptors(
+        FileInterceptor('image'),
+    )
+    @Post('/menu/create/:idRestaurant')
+    async createFood(@Param('idRestaurant') idRestaurant : string,@UploadedFile() file,@Body()foodDto : FoodDto)
+    {
+        return this.adminService.createFood(file,idRestaurant,foodDto)
+    }
 }
+

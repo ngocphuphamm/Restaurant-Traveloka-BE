@@ -88,7 +88,12 @@ export class AdminController {
     {
         return this.adminService.editFood(idFood,foodDto)
     }
-    
+
+    @Delete('/menu/deleteFood/:idFood')
+    async deleteFood(@Param('idFood') idFood : string)
+    {
+        return this.adminService.deleteFood(idFood)
+    }
  
 }
 

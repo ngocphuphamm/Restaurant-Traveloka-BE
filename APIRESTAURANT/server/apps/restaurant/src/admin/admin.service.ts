@@ -98,7 +98,7 @@ export class AdminService {
             for (let i = 0; i < countRestaurant.length; i++) {
                 getLengthRestaurant = Number(countRestaurant[i].sl);
             }
-            const idRestaurant = `R${getLengthRestaurant + 1}`;
+            const idRestaurant = `R${shortid.generate()}`;
             await getConnection()
                 .createQueryBuilder()
                 .insert()
@@ -209,7 +209,7 @@ export class AdminService {
     }
 
     async deleteRestaurant(idRestaurant: string) {
-        try{
+        try {
             const entityMnager = getManager();
             await entityMnager.query(`
             DELETE
@@ -225,7 +225,7 @@ export class AdminService {
            DELETE
            FROM DetailMenu
            WHERE idRestaurant = '${idRestaurant}'`)
-           await entityMnager.query(`
+            await entityMnager.query(`
            DELETE
             FROM Menu
             WHERE idRestaurant = '${idRestaurant}'`)
@@ -233,16 +233,16 @@ export class AdminService {
             DELETE
             FROM Restaurant
             WHERE idRestaurant = '${idRestaurant}'`)
-            return({
+            return ({
                 success: true,
-                msg : "DELETE SUCCESS"
+                msg: "DELETE SUCCESS"
             })
         }
-        catch (err){
+        catch (err) {
             console.log(err);
             return {
-                success :false,
-                msg : "Delete Failed"
+                success: false,
+                msg: "Delete Failed"
             }
         }
     }
@@ -263,7 +263,7 @@ export class AdminService {
             `)
 
             const idMenu = listIdMenu[0].idMenu;
-            const idFood = lengthFood[0].qtyfood + 1
+            const idFood = shortid.generate()
 
             await entityMnager.query(`
                 INSERT INTO FOOD (idFood,nameFood,priceFood,qty,qtyBook)
@@ -344,5 +344,36 @@ export class AdminService {
             }
         }
     }
-  
+    async deleteFood(idFood: string) {
+        try {
+            const entityMnager = getManager();
+            await entityMnager.query(`
+                                    DELETE
+                                    FROM DetailMenu
+                                    WHERE idFood = '${idFood}'
+            `);
+            await entityMnager.query(`
+                                    DELETE 
+                                    FROM ListImagesFood 
+                                    WHERE idFood = '${idFood}'
+            `);
+            await entityMnager.query(`
+                                  DELETE 
+                                  FROM Food
+                                  WHERE idFood= '${idFood}'
+            `);
+            return {
+                success: true,
+                msg: " SUCCES DELETE FOOD"
+            }
+        }
+        catch (err) {
+            console.log(err)
+            return {
+                succes: false,
+                msg: " Failed DELETE FOOD"
+            }
+        }
+    }
+
 }

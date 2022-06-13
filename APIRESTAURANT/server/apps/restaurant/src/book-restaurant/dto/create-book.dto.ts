@@ -4,7 +4,7 @@ export class CreateBookDto {
     nameBook: string;
     phoneBook: number;
     dateBook : Date;
-    bookingSession: boolean;
+    bookingSession: number;
     createdAt : Date;
     status: boolean;
 }

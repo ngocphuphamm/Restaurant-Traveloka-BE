@@ -1,6 +1,7 @@
 import { BookRestaurantService } from './book-restaurant.service';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
+import { BookNumberDto } from './dto/book-NumberSlot';
 
 @Controller('bookrestaurant')
 export class BookRestaurantController {
@@ -21,5 +22,11 @@ export class BookRestaurantController {
     async getBookRestaurant(@Body() req)
     {
        return this.BookRestaurantService.getQtyBookRestaurant(req.body)
+    }
+
+    @Post('getNumberSlotBook')
+    async getNumberSlotBook(@Body()bookNumber : BookNumberDto)
+    {
+       return this.BookRestaurantService.getNumberSlot(bookNumber)
     }
 }
